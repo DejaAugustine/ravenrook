@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-
 const tempCover = require('./tdc-cover.jpg');
 
 const aoeth = require('./tokens/aoeth.png');
@@ -12,8 +11,18 @@ const sabine = require('./tokens/sabine.png');
 
 const varis = require('./tokens/varis.png');
 const torvald = require('./tokens/torvald.png');
+const dero = require('./tokens/dero.png');
+const mina = require('./tokens/mina.png');
 
 class App extends Component {
+  componentDidMount() {
+    fetch("http://therookandtheraven.com/wp-json/wp/v2/posts")
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+      });
+  }
+
   render() {
     return (
       <section className="site">
@@ -22,19 +31,19 @@ class App extends Component {
         </header>
         <nav className="site-nav">
           <ul className="menu">
-            <li className="menu-item"><a href="#">Home</a></li>
-            <li className="menu-item active"><a href="#">Campaigns</a></li>
-            <li className="menu-item"><a href="#">Players</a></li>
-            <li className="menu-item"><a href="#">Contact</a></li>
+            <li className="menu-item"><a href="/">Home</a></li>
+            <li className="menu-item active"><a href="/campaigns">Campaigns</a></li>
+            <li className="menu-item"><a href="/players">Players</a></li>
+            <li className="menu-item"><a href="/contact">Contact</a></li>
           </ul>
         </nav>
         <section className="campagins">
           <nav className="campaign-listing">
             <ul className="menu">
-              <li className="menu-item"><a href="#"><span>Blood In The Water</span></a></li>
-              <li className="menu-item active" style={{background: 'url(' + tempCover + ') top center no-repeat'}}><a href="#"><span>The Dark Continent</span></a></li>
-              <li className="menu-item"><a href="#"><span>Curse Of Strahd</span></a></li>
-              <li className="menu-item"><a href="#"><span>The Journal of Dr. Dromio Lazlow</span></a></li>
+              <li className="menu-item"><a href="/campaigns/blood-in-the-water"><span>Blood In The Water</span></a></li>
+              <li className="menu-item active" style={{background: 'url(' + tempCover + ') top center no-repeat'}}><a href="/campaigns/the-dark-continent"><span>The Dark Continent</span></a></li>
+              <li className="menu-item"><a href="/campaigns/curse-of-strahd"><span>Curse Of Strahd</span></a></li>
+              <li className="menu-item"><a href="/campaigns/journal-of-dromio-lazlow"><span>The Journal of Dr. Dromio Lazlow</span></a></li>
             </ul>
           </nav>
           <section className="campaign">
@@ -42,29 +51,44 @@ class App extends Component {
               <h2>The Dark Continent</h2>
               <h3>Session 1: Welcome To The Club</h3>
               <ul className="menu cast-list">
-                <li className="menu-item character" style={{background: 'url(' + aoeth + ') top center no-repeat'}}><a href="#"><span>Aoeth</span></a></li>
-                <li className="menu-item character" style={{background: 'url(' + bree + ') top center no-repeat'}}><a href="#"><span>Bree</span></a></li>
-                <li className="menu-item character" style={{background: 'url(' + gil + ') top center no-repeat'}}><a href="#"><span>Gil</span></a></li>
-                <li className="menu-item character" style={{background: 'url(' + hugh + ') top center no-repeat'}}><a href="#"><span>Hugh</span></a></li>
-                <li className="menu-item character" style={{background: 'url(' + kasiashi + ') top center no-repeat'}}><a href="#"><span>Kasiashi</span></a></li>
-                <li className="menu-item character" style={{background: 'url(' + sabine + ') top center no-repeat'}}><a href="#"><span>Sabine</span></a></li>
+                <li className="menu-item character" style={{background: 'url(' + aoeth + ') top center no-repeat'}}><a href="/characters/aoeth"><span>Aoeth</span></a></li>
+                <li className="menu-item character" style={{background: 'url(' + bree + ') top center no-repeat'}}><a href="/characters/bree"><span>Bree</span></a></li>
+                <li className="menu-item character" style={{background: 'url(' + gil + ') top center no-repeat'}}><a href="/characters/gil"><span>Gil</span></a></li>
+                <li className="menu-item character" style={{background: 'url(' + hugh + ') top center no-repeat'}}><a href="/characters/hugh"><span>Hugh</span></a></li>
+                <li className="menu-item character" style={{background: 'url(' + kasiashi + ') top center no-repeat'}}><a href="/characters/kasiashi"><span>Kasiashi</span></a></li>
+                <li className="menu-item character" style={{background: 'url(' + sabine + ') top center no-repeat'}}><a href="/characters/sabine"><span>Sabine</span></a></li>
               </ul>
             </header>
 
             <main>
               <aside>
                 <h4>Notable Guests &amp; NPCs</h4>
-                <article className="npc" style={{background: 'url(' + varis + ') center left no-repeat'}}>
-                  <p>Varis - Moon Elf Wizard</p>
-                  <p>The Seventh Adventurer</p>
-                </article>
-                <article className="npc" style={{background: 'url(' + torvald + ') center left no-repeat'}}>
-                  <p>Torvald - Commoner</p>
-                  <p>Gâla's "Caller"</p>
-                </article>
+                <a href="/characters/varis" className="npc" style={{background: 'url(' + varis + ') center left no-repeat'}}>
+                  <p>
+                    Varis - Moon Elf Wizard<br />
+                    The Seventh Adventurer
+                  </p>
+                </a>
+                <a href="/characters/torvald" className="npc" style={{background: 'url(' + torvald + ') center left no-repeat'}}>
+                  <p>
+                    Torvald - Dwarf Commoner<br />
+                    Gâla's "Caller"
+                  </p>
+                </a>
+                <a href="/characters/dero" className="npc" style={{background: 'url(' + dero + ') center left no-repeat'}}>
+                  <p>
+                    Dero - Half-Orc Paladin<br />
+                    Leader of the Lions of Dadun
+                  </p>
+                </a>
+                <a href="/characters/mina" className="npc" style={{background: 'url(' + mina + ') center left no-repeat'}}>
+                  <p>
+                    Mina - Human Cleric<br />
+                    Leader of the Covenant of the Fang and Scepter
+                  </p>
+                </a>
               </aside>
 
-              <p>Welcome to the Club!</p>
               <p>Accepting the third adventure in this month's Call to Adventure in Gâla, Kasiashi accepted (benevolently on behalf of all the assembled wanna-be adventurers) a scroll with the following words upon it:</p>
               <blockquote>
                 "The village of Bramblebark is having a problem with wolves that they would like solved"<br />
@@ -92,7 +116,12 @@ class App extends Component {
           </section>
         </section>
         <footer>
-
+          <p>Follow us on twitter: @dejaaugustine, @amberaugustine, and @therooktheraven</p>
+          <p>
+            <small>original content copyright &copy; 2015-2017 Déja Augustine and the respective party members</small>
+            <br />
+            <small>licensed content and artwork (unless noted) remain the copyright of the original creator(s) and are used here without permission</small>
+          </p>
         </footer>
       </section>
     );

@@ -4,6 +4,11 @@ body {
   text-align: center;
 }
 
+a {
+  text-decoration: none;
+  color: #CCCCCC;
+}
+
 .site-header {
   background: url(./logo.svg) center center no-repeat;
   height: 5em;
@@ -24,6 +29,7 @@ body {
 
 .menu {
   display: flex;
+  align-items: center;
   margin: 0;
   list-style: none;
   padding: 0;
@@ -36,7 +42,6 @@ body {
 .menu a {
   color: #AAAAAA;
   font-size: 1.25em;
-  text-decoration: none;
 }
 
 .menu .active a {
@@ -48,7 +53,7 @@ body {
   background-size: cover;
   border: 2px solid black;
   margin: 20px 10px;
-  min-height: 12em;
+  height: 10em;
   position: relative;
 }
 
@@ -68,13 +73,13 @@ body {
   font-size: 2vw;
   left: 0;
   position: absolute;
-  text-decoration: none;
   width: 100%;
 }
 
 .campaign-listing .active {
   flex: 2 0;
   border: 3px solid #4098CB;
+  height: 14em;
 }
 
 .campaign-listing .active span {
@@ -111,6 +116,16 @@ h3 {
   margin-bottom: 5em;
 }
 
+.character a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .character span {
   color: #FFFFFF;
   position: absolute;
@@ -123,6 +138,7 @@ h3 {
 main {
   color: #FFFFFF;
   text-align: left;
+  padding: 2vw;
 }
 
 aside {
@@ -132,14 +148,35 @@ aside {
   min-width: 250px;
   float: right;
   padding: 1em;
+  margin-left: 2vw;
+  margin-top: 2vw;
 }
 
-article {
+h4 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-size: 1.5em;
+  font-weight: normal;
+}
+
+.npc {
+  display: flex;
+  align-items: center;
+  padding: 0.75em;
   padding-left: 80px;
   height: 80px;
 }
 
 .npc p {
+  flex: 1 1;
   margin: 0;
-  padding: 0;
+}
+
+footer {
+  padding: 2vw;
+}
+
+footer p {
+  margin: 0;
 }
