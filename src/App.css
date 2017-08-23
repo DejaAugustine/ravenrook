@@ -1,0 +1,39 @@
+.site {
+  font-family: "omnes-pro", sans-serif;
+  text-align: center;
+}
+
+.site-header {
+  background: url(./logo.svg) center center no-repeat;
+  height: 5em;
+  margin: 1em auto;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+
+.site-nav {
+  background-color: #444444;
+  color: #FFFFFF;
+}
+
+.site-nav {
+  padding: 0.5em;
+}
+
+.menu {
+  display: flex;
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+.menu .menu-item {
+  color: #AAAAAA;
+  flex: 1 1;
+  font-size: 1.25em;
+}
+
+.menu .active {
+  color: #FFFFFF;
+}
