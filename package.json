@@ -2,7 +2,7 @@
   "name": "ravenrook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dejaaugustine.github.io/ravenrook",
+  "homepage": "http://app.therookandtheraven.com/",
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
