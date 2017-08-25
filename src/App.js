@@ -1,33 +1,30 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  Link } from 'react-router-dom';
 
+import Homepage from './Homepage.js';
 import CampaignListing from './CampaignListing.js';
+import ContactForm from './ContactForm.js';
+
 import './App.css';
 
 class App extends Component {
   render() {
-
-    var active="home";
-    if(window.location.pathname.indexOf('/campaigns') !== -1)
-      active="campaigns";
-    if(window.location.pathname.indexOf('/contact') !== -1)
-      active="contact";
-
     return (
-      <Router basename="/ravenrook" >
+      <BrowserRouter>
         <section className="site">
           <header>
             <h1 className="site-header">The Rook and The Raven</h1>
           </header>
-          <nav className="site-nav">
-            <ul className="menu">
-              <li className={"menu-item" + (active === "home" ? " active": "")}><a href="/">Home</a></li>
-              <li className={"menu-item" + (active === "campaigns" ? " active": "")}><a href="/campaigns">Campaigns</a></li>
-              <li className={"menu-item" + (active === "contact" ? " active": "")}><a href="/contact">Contact</a></li>
-            </ul>
-          </nav>
 
-          <Route path="/campaigns" component={CampaignListing} />
+          <Switch>
+            <Route path="/" exact component={Homepage} />
+            <Route path="/campaigns" component={CampaignListing} />
+            <Route path="/contact" component={ContactForm} />
+          </Switch>
 
           <footer>
             <p>Follow us on twitter: @dejaaugustine, @amberaugustine, and @therooktheraven</p>
@@ -38,7 +35,7 @@ class App extends Component {
             </p>
           </footer>
         </section>
-      </Router>
+      </BrowserRouter>
     );
   }
 }

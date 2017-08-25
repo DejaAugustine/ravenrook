@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Party from './Party.js';
 
 import './SessionList.css';
@@ -6,7 +7,7 @@ import './SessionList.css';
 class SessionList extends Component {
   render() {
     const sessionList = this.props.sessions.map((session, index) => {
-      return <li key={index} className="menu-item" style={{backgroundImage: 'url(' + session.acf.cover_art + ')'}}><a href={this.props.match.url + '/' + session.slug}><span>Session {session.acf.session_number}<br />{session.title.rendered}</span></a></li>
+      return <li key={index} className="menu-item" style={{backgroundImage: 'url(' + session.acf.cover_art + ')'}}><Link to={this.props.match.url + '/' + session.slug}><span>Session {session.acf.session_number}<br />{session.title.rendered}</span></Link></li>
     });
 
     const description = this.props.campaign ? this.props.campaign.description : '';
