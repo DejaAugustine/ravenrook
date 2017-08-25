@@ -14,7 +14,7 @@ class App extends Component {
       active="contact";
 
     return (
-      <Router>
+      <Router basename="/ravenrook" >
         <section className="site">
           <header>
             <h1 className="site-header">The Rook and The Raven</h1>
