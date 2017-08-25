@@ -13,8 +13,6 @@ class CampaignListing extends Component {
   componentDidMount() {
     const $this = this;
 
-    console.log("CampaignListing", $this.props);
-
     fetch("http://api.therookandtheraven.com/wp-json/wp/v2/campaign")
       .then(res => res.json())
       .then(res => {
@@ -23,7 +21,6 @@ class CampaignListing extends Component {
         });
 
         res.forEach(function(campaign) {
-          console.log("CL:campaign", campaign);
           if($this.props.location.pathname.indexOf(campaign.slug) !== -1) {
             $this.setState({
               active: campaign
@@ -34,7 +31,6 @@ class CampaignListing extends Component {
   }
 
   render() {
-    console.log("CampaignListing:State", this.state);
     const state = this.state;
 
     const campaignList = state.campaigns.map((campaign, index) => {

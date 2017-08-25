@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import SessionList from './SessionList.js';
+import SessionDetail from './SessionDetail.js';
+import parseWPResponse from './utils.js';
 import './Campaign.css';
 
 const aoeth = require('./tokens/aoeth.png');
@@ -13,40 +15,47 @@ const sabine = require('./tokens/sabine.png');
 class Campaign extends Component {
   componentWillMount() {
     this.setState({
-      sessions: []
+      items: [],
+      index: {},
+      active: undefined
     });
   }
 
   componentDidMount() {
     const $this = this;
-    console.log("Campaign", this.props);
 
-    fetch("http://api.therookandtheraven.com/wp-json/wp/v2/session?_embed")
+    fetch("http://api.therookandtheraven.com/wp-json/wp/v2/session?_embed&filter[orderby]=date&order=desc")
       .then(res => res.json())
+      .then(res => parseWPResponse(res))
       .then(res => {
-        console.log("Campaign:Fetch", res);
-        this.setState({
-          sessions: res
+        $this.setState({
+          items: res
         });
 
-        res.forEach(function(session) {
-          console.log($this.props.location.pathname, session.slug);
-          if($this.props.location.pathname.endsWith(session.slug)) {
+        for(var i=0;i<res.length;i++) {
+          var item = res[i];
+          var index = $this.state.index || {};
+
+          index[item.slug] = item;
+          $this.setState({
+            index: index
+          });
+
+          if($this.props.location.pathname.endsWith(item.slug)) {
             $this.setState({
-              active: session
+              active: item
             });
           }
-        });
+        }
       });
   }
 
   render() {
-    console.log("Campaign:State", this.state);
-
+    const $this = this;
     const name = this.props.name;
-    const id = this.props.id;
     const description = this.props.description;
-    const sessions = this.state.sessions;
+    const sessions = this.state.items;
+    const index = this.state.index;
     const active = this.state.active;
 
     const pageTitle = active === undefined ? "Campaign Overview" : "Session " + active.acf.session_number + ": " + active.title.rendered;
@@ -73,8 +82,20 @@ class Campaign extends Component {
         }} />
 
         <Route path={this.props.match.url + '/:sessionSlug'} render={function(props){
+          const prev = <li className="menu-item"><a href={$this.props.match.url + '/bramblebark'}>&lt; Session 2: Bramblebark</a></li>;
+          const top = <li className="menu-item"><a href={$this.props.match.url}>Back to Campaign</a></li>
+          const next = <li className="menu-item"></li>
           return (
-            <p>Mup</p>
+            <div>
+              <SessionDetail session={index[props.match.params.sessionSlug]} {...props} />
+              <nav>
+                <ul className="menu">
+                  {prev}
+                  {top}
+                  {next}
+                </ul>
+              </nav>
+            </div>
           );
         }} />
 
