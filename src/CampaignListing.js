@@ -6,27 +6,36 @@ import './CampaignListing.css';
 class CampaignListing extends Component {
   componentWillMount() {
     this.setState({
-      campaigns: []
+      campaigns: [],
+      index: {}
     })
   }
 
   componentDidMount() {
     const $this = this;
 
-    fetch("http://api.therookandtheraven.com/wp-json/wp/v2/campaign")
+    fetch("http://api.therookandtheraven.com/wp-json/wp/v2/categories?parent=16")
       .then(res => res.json())
       .then(res => {
         $this.setState({
           campaigns: res
         });
 
-        res.forEach(function(campaign) {
+        for(var i=0;i<res.length;i++) {
+          const campaign = res[i];
+          var index = $this.state.index || {};
+
+          index[campaign.slug] = i;
+          $this.setState({
+            index: index
+          });
+
           if($this.props.location.pathname.indexOf(campaign.slug) !== -1) {
             $this.setState({
               active: campaign
             });
           }
-        });
+        }
       });
   }
 
@@ -51,12 +60,10 @@ class CampaignListing extends Component {
         </nav>
 
         <Route path={this.props.match.url + '/:campaignId'} render={function(props) {
-          const id = state.active ? state.active.id : undefined;
-          const name = state.active ? state.active.name : undefined;
-          const description = state.active ? state.active.description : undefined;
-
+          const index = state.index[props.match.params.campaignId];
+          const campaign = index ? state.campaigns[index] : undefined;
           return (
-            <Campaign id={id} name={name} description={description} {...props} />
+            <Campaign campaign={campaign} {...props} />
           );
         }} />
       </section>

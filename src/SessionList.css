@@ -1,3 +1,7 @@
+.session-listing {
+  flex-wrap: wrap;
+}
+
 .session-listing .menu-item {
   background-color: #CCCCCC;
   background-size: cover;
@@ -5,7 +9,8 @@
   border: 2px solid black;
   margin: 20px 10px;
   height: 15em;
-  max-width: 30vw;
+  min-width: 30%;
+  max-width: 30%;
   position: relative;
 }
 

@@ -16,7 +16,6 @@ class App extends Component {
             <ul className="menu">
               <li className="menu-item"><a href="/">Home</a></li>
               <li className="menu-item active"><a href="/campaigns">Campaigns</a></li>
-              <li className="menu-item"><a href="/players">Players</a></li>
               <li className="menu-item"><a href="/contact">Contact</a></li>
             </ul>
           </nav>
