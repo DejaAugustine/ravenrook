@@ -10,12 +10,12 @@ class SessionDetail extends Component {
     const session = this.props.session;
     const campaign = this.props.campaign;
     const body = session ? session.content.rendered : "";
-    //const title = session ? session.title.rendered : "";
+    const title = session ? session.title.rendered : "";
 
     return (
       <main>
         <header>
-          <h3></h3>
+          <h3>{title}</h3>
           <Party campaign={campaign} session={session} />
         </header>
 

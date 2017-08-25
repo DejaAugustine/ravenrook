@@ -9,6 +9,11 @@ a {
   color: #CCCCCC;
 }
 
+#root {
+  max-width: 80em;
+  margin: 0 auto;
+}
+
 .site-header {
   background: url(./logo.svg) center center no-repeat;
   height: 5em;

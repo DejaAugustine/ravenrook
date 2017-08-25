@@ -1,0 +1,35 @@
+aside {
+  background-color: #0f3647;
+  border: 2px solid #FFFFFF;
+  width: 30vw;
+  min-width: 250px;
+  float: right;
+  padding: 1em;
+  margin-left: 2vw;
+  margin-top: 2vw;
+}
+
+h4 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-size: 1.5em;
+  font-weight: normal;
+}
+
+.npc {
+  background-position: center left;
+  background-repeat: no-repeat;
+  background-size: 70px 70px;
+  display: flex;
+  align-items: center;
+  padding: 0.75em;
+  padding-left: 80px;
+  height: 80px;
+}
+
+.npc p {
+  flex: 1 1;
+  margin: 0;
+
+}

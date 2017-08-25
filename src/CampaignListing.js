@@ -21,6 +21,8 @@ class CampaignListing extends Component {
           campaigns: res
         });
 
+        console.log("CampaignListing", res);
+
         for(var i=0;i<res.length;i++) {
           const campaign = res[i];
           var index = $this.state.index || {};

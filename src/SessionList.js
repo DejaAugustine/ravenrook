@@ -11,6 +11,7 @@ class SessionList extends Component {
 
     const description = this.props.campaign ? this.props.campaign.description : '';
 
+    console.log("SessionList", description, this.props.campaign);
     return (
       <main>
         <header>

@@ -14,6 +14,11 @@ class Campaign extends Component {
   }
 
   componentWillReceiveProps(props) {
+    console.log("wrp", this.props, props);
+    if(props === this.props)
+      return;
+
+    console.log("wrp", this.props, props);
     const $this = this;
     const campaignId = props.campaign ? props.campaign.id : undefined;
 
@@ -55,6 +60,8 @@ class Campaign extends Component {
     const name = campaign ? campaign.name : '';
     const sessions = this.state.items;
     const index = this.state.index;
+
+    console.log("Campaign", this.state, campaign, name);
 
     return (
       <section className="campaign">
