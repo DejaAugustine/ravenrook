@@ -37,6 +37,10 @@ main {
   font-size: 1.3em;
 }
 
+.content {
+  padding-left: 10em;
+}
+
 .campaign nav {
   padding: 2vw;
 }

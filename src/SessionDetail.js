@@ -21,7 +21,7 @@ class SessionDetail extends Component {
 
         <NPCs campaign={campaign} session={session} />
 
-        <section dangerouslySetInnerHTML={{__html: body}} />
+        <section className="content" dangerouslySetInnerHTML={{__html: body}} />
       </main>
     );
   }
