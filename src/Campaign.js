@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import SessionList from './SessionList.js';
 import SessionDetail from './SessionDetail.js';
 import parseWPResponse from './utils.js';
@@ -55,6 +55,8 @@ class Campaign extends Component {
   }
 
   render() {
+    console.log("Campaign", this.props);
+
     const $this = this;
     const campaign = this.state.campaign;
     const name = campaign ? campaign.name : '';
@@ -69,38 +71,40 @@ class Campaign extends Component {
           <h2>{name}</h2>
         </header>
 
-        <Route path={this.props.match.url} exact render={function(props){
-          return (
-            <SessionList campaign={campaign} sessions={sessions} {...props} />
-          );
-        }} />
+        <Switch>
+          <Route path={this.props.match.url} exact render={function(props){
+            return (
+              <SessionList campaign={campaign} sessions={sessions} {...props} />
+            );
+          }} />
 
-        <Route path={this.props.match.url + '/:sessionSlug'} render={function(props){
-          const i = index[props.match.params.sessionSlug];
-          var prev = <span>&nbsp;</span>;
-          if(i < sessions.length - 1) {
-            const ps = sessions[i + 1];
-            prev = <a href={$this.props.match.url + '/' + ps.slug}>&lt; Session {ps.acf.session_number}</a>;
-          }
-          const top = <a href={$this.props.match.url}>Back to Campaign</a>;
-          var next = <span>&nbsp;</span>;
-          if(i > 0) {
-            const ns = sessions[i - 1];
-            next = <a href={$this.props.match.url + '/' + ns.slug}>Session {ns.acf.session_number} &gt;</a>;
-          }
-          return (
-            <div>
-              <SessionDetail campaign={campaign} session={sessions[i]} {...props} />
-              <nav>
-                <ul className="menu">
-                  <li className="menu-item">{prev}</li>
-                  <li className="menu-item">{top}</li>
-                  <li className="menu-item">{next}</li>
-                </ul>
-              </nav>
-            </div>
-          );
-        }} />
+          <Route path={this.props.match.url + '/:sessionSlug'} render={function(props){
+            const i = index[props.match.params.sessionSlug];
+            var prev = <span>&nbsp;</span>;
+            if(i < sessions.length - 1) {
+              const ps = sessions[i + 1];
+              prev = <Link to={$this.props.match.url + '/' + ps.slug}>&lt; Session {ps.acf.session_number}</Link>;
+            }
+            const top = <Link to={$this.props.match.url}>Back to Campaign</Link>;
+            var next = <span>&nbsp;</span>;
+            if(i > 0) {
+              const ns = sessions[i - 1];
+              next = <Link to={$this.props.match.url + '/' + ns.slug}>Session {ns.acf.session_number} &gt;</Link>;
+            }
+            return (
+              <div>
+                <SessionDetail campaign={campaign} session={sessions[i]} {...props} />
+                <nav>
+                  <ul className="menu">
+                    <li className="menu-item">{prev}</li>
+                    <li className="menu-item">{top}</li>
+                    <li className="menu-item">{next}</li>
+                  </ul>
+                </nav>
+              </div>
+            );
+          }} />
+        </Switch>
 
       </section>
     );

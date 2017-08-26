@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Party from './Party.js';
 import NPCs from './NPCs.js';
 
-//import './Session.css';
-
 class SessionDetail extends Component {
   render() {
     console.log("Detail", this.props);

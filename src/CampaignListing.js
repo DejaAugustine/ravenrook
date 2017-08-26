@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
+import SiteNav from './SiteNav.js';
 import Campaign from './Campaign.js';
 import './CampaignListing.css';
 
@@ -50,25 +51,30 @@ class CampaignListing extends Component {
         classes = classes + " active";
       }
 
-      return <li key={index} className={classes} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}><a href={'/campaigns/' + campaign.slug}><span>{campaign.name}</span></a></li>
+      return <li key={index} className={classes} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}><Link to={'/campaigns/' + campaign.slug}><span>{campaign.name}</span></Link></li>
     });
 
     return (
-      <section className="campagins">
-        <nav className="campaign-listing">
-          <ul className="menu">
-            {campaignList}
-          </ul>
-        </nav>
+      <div>
+        <SiteNav />
+        <section className="campagins">
+          <nav className="campaign-listing">
+            <ul className="menu">
+              {campaignList}
+            </ul>
+          </nav>
 
-        <Route path={this.props.match.url + '/:campaignId'} render={function(props) {
-          const index = state.index[props.match.params.campaignId];
-          const campaign = index ? state.campaigns[index] : undefined;
-          return (
-            <Campaign campaign={campaign} {...props} />
-          );
-        }} />
-      </section>
+          <Switch>
+            <Route path={this.props.match.url + '/:campaignId'} render={function(props) {
+              const index = state.index[props.match.params.campaignId];
+              const campaign = index ? state.campaigns[index] : undefined;
+              return (
+                <Campaign campaign={campaign} {...props} />
+              );
+            }} />
+          </Switch>
+        </section>
+      </div>
     );
   }
 };

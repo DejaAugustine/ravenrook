@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import parseWPResponse from './utils.js';
 
 import './Party.css';
@@ -14,7 +15,7 @@ class Party extends Component {
   componentWillReceiveProps(props) {
     if(props === this.props)
       return;
-      
+
     if(props.campaign) {
       fetch("http://api.therookandtheraven.com/wp-json/wp/v2/character?filter[orderby]=title&order=asc&categories_exclude=11&categories=" + props.campaign.id)
         .then(res => res.json())
@@ -46,7 +47,7 @@ class Party extends Component {
         classes.push("absent");
       }
 
-      return <li key={index} className={classes.join(' ')} style={{backgroundImage: 'url(' + character.acf.token + ')'}}><a href={'/characters/' + character.slug}><span>{character.acf.short_name || character.title.rendered}</span></a></li>
+      return <li key={index} className={classes.join(' ')} style={{backgroundImage: 'url(' + character.acf.token + ')'}}><Link to={'/characters/' + character.slug}><span>{character.acf.short_name || character.title.rendered}</span></Link></li>
     });
 
     return (

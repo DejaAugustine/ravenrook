@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import parseWPResponse from './utils.js';
 
 import './NPCs.css';
@@ -44,12 +45,12 @@ class NPCs extends Component {
       const present = state.present.length > 0 ? state.present.includes(character.id) : true;
       if(present) {
         return (
-          <a key={index} href={'/characters/' + character.slug} className="npc" style={{backgroundImage: 'url(' + character.acf.token + ')'}}>
+          <Link key={index} to={'/characters/' + character.slug} className="npc" style={{backgroundImage: 'url(' + character.acf.token + ')'}}>
             <p>
               {character.acf.short_name || character.title.rendered} - {character.acf.race_class}<br />
               {character.acf.summary}
             </p>
-          </a>
+          </Link>
         );
       } else {
         return (null);
