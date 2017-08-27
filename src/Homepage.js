@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-
 import SiteNav from './SiteNav.js';
 
 class Homepage extends Component {
 
   render() {
     return (
-      <div className="static">
+      <div>
         <SiteNav />
         <main>
           <p>Welcome to The Rook and The Raven</p>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import parseWPResponse from './utils.js';
+import { parseWPResponse } from './utils.js';
 
 import './NPCs.css';
 
@@ -18,7 +18,7 @@ class NPCs extends Component {
     }
 
     if(props.campaign) {
-      fetch("http://api.therookandtheraven.com/wp-json/wp/v2/character?filter[orderby]=title&order=asc&categories_exclude=10&categories=" + props.campaign.id)
+      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/character?filter[orderby]=title&order=asc&categories_exclude=10&categories=" + props.campaign.id)
         .then(res => res.json())
         .then(res => parseWPResponse(res))
         .then(res => {

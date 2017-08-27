@@ -2,68 +2,85 @@ import React, { Component } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import SessionList from './SessionList.js';
 import SessionDetail from './SessionDetail.js';
-import parseWPResponse from './utils.js';
+import { parseWPResponse } from './utils.js';
 import './Campaign.css';
 
 class Campaign extends Component {
-  componentWillMount() {
+
+  parseCampaign(campaignSlug, props) {
+    if(!props.campaignIndex) return;
+    
+    const campaignId = props.campaignIndex[campaignSlug];
+    const campaign = props.campaigns[campaignId];
+
     this.setState({
-      items: [],
-      index: {}
+      campaign: campaign
     });
-  }
 
-  componentWillReceiveProps(props) {
-    console.log("wrp", this.props, props);
-    if(props === this.props)
-      return;
-
-    console.log("wrp", this.props, props);
-    const $this = this;
-    const campaignId = props.campaign ? props.campaign.id : undefined;
-
-    if(campaignId) {
-      $this.setState({
-        campaign: props.campaign
-      });
-
-      fetch("http://api.therookandtheraven.com/wp-json/wp/v2/session?categories=" + props.campaign.id + "&filter[orderby]=date&order=desc")
+    if(campaign) {
+      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/session?categories=" + campaign.id + "&filter[orderby]=date&order=desc")
         .then(res => res.json())
         .then(res => parseWPResponse(res))
         .then(res => {
-          $this.setState({
+          console.log("parseCampaign:Fetch");
+          this.setState({
             items: res
           });
 
           for(var i=0;i<res.length;i++) {
             var item = res[i];
-            var index = $this.state.index || {};
+            var index = this.state.index || {};
 
             index[item.slug] = i;
-            $this.setState({
+            this.setState({
               index: index
             });
 
-            if($this.props.location.pathname.endsWith(item.slug)) {
-              $this.setState({
+            if(props.location.pathname.endsWith(item.slug)) {
+              this.setState({
                 active: item
               });
             }
-          }
+          };
         });
-      }
+    }
+  }
+
+  componentWillMount() {
+    this.setState({
+      items: []
+    });
+  }
+
+  componentDidMount() {
+    const campaignSlug = this.props.match.params.campaignSlug;
+
+    this.setState({
+      campaignSlug: campaignSlug
+    });
+
+    if(campaignSlug && this.props.campaigns.length > 0) {
+      this.parseCampaign(campaignSlug, this.props);
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(this.props === newProps) {
+      return;
+    }
+
+    const campaignSlug = newProps.match.params.campaignSlug || this.state.campaignSlug;
+
+    if(campaignSlug && newProps.campaigns.length > 0) {
+      this.parseCampaign(campaignSlug, newProps);
+    }
   }
 
   render() {
-    console.log("Campaign", this.props);
-
-    const $this = this;
     const campaign = this.state.campaign;
     const name = campaign ? campaign.name : '';
     const sessions = this.state.items;
     const index = this.state.index;
-
-    console.log("Campaign", this.state, campaign, name);
 
     return (
       <section className="campaign">
@@ -72,38 +89,8 @@ class Campaign extends Component {
         </header>
 
         <Switch>
-          <Route path={this.props.match.url} exact render={function(props){
-            return (
-              <SessionList campaign={campaign} sessions={sessions} {...props} />
-            );
-          }} />
-
-          <Route path={this.props.match.url + '/:sessionSlug'} render={function(props){
-            const i = index[props.match.params.sessionSlug];
-            var prev = <span>&nbsp;</span>;
-            if(i < sessions.length - 1) {
-              const ps = sessions[i + 1];
-              prev = <Link to={$this.props.match.url + '/' + ps.slug}>&lt; Session {ps.acf.session_number}</Link>;
-            }
-            const top = <Link to={$this.props.match.url}>Back to Campaign</Link>;
-            var next = <span>&nbsp;</span>;
-            if(i > 0) {
-              const ns = sessions[i - 1];
-              next = <Link to={$this.props.match.url + '/' + ns.slug}>Session {ns.acf.session_number} &gt;</Link>;
-            }
-            return (
-              <div>
-                <SessionDetail campaign={campaign} session={sessions[i]} {...props} />
-                <nav>
-                  <ul className="menu">
-                    <li className="menu-item">{prev}</li>
-                    <li className="menu-item">{top}</li>
-                    <li className="menu-item">{next}</li>
-                  </ul>
-                </nav>
-              </div>
-            );
-          }} />
+          <Route path={this.props.match.url} exact render={props => <SessionList campaign={campaign} sessions={sessions} {...props} />} />
+          <Route path={this.props.match.url + '/:sessionSlug'} render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={this.props.match.url} {...props} />} />
         </Switch>
 
       </section>

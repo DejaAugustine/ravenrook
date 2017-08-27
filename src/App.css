@@ -14,7 +14,7 @@ a {
   margin: 0 auto;
 }
 
-.static main {
+main {
   background-color: #194e6d;
   padding: 2em;
 }
@@ -54,7 +54,7 @@ a {
   font-size: 1.25em;
 }
 
-.menu .active a {
+.menu .active {
   color: #FFFFFF;
 }
 
