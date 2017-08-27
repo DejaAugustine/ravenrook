@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter,
-  Route,
-  Switch } from 'react-router-dom';
-
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 import Homepage from './Homepage.js';
 import CampaignListing from './CampaignListing.js';
@@ -16,6 +13,12 @@ class App extends Component {
     return (
       <BrowserRouter>
         <section className="site">
+          <Helmet>
+            <title>The Anti-Heroic Misadventures of The Rook and The Raven</title>
+            <meta name="description" content="A player and her DM recount the misadventures of four of their Dungeons and Dragons campaigns session-by-session - including DM notes and player commentary."/>
+            <link rel="canonical" href="https://therookandtheraven.com/" />
+          </Helmet>
+
           <header>
             <h1 className="site-header">The Rook and The Raven</h1>
           </header>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, NavLink, Switch } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 import SiteNav from './SiteNav.js';
 import Campaign from './Campaign.js';
 import './CampaignListing.css';
@@ -45,14 +46,17 @@ class CampaignListing extends Component {
   }
 
   render() {
-    const state = this.state;
-
-    const campaignList = state.campaigns.map((campaign, index) => {
+    const campaignList = this.state.campaigns.map((campaign, index) => {
       return <li key={index} className="menu-item"><NavLink to={'/campaigns/' + campaign.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}><span>{campaign.name}</span></NavLink></li>
     });
 
     return (
       <div>
+        <Helmet>
+          <title>Campaign List - The Rook and The Raven</title>
+          <meta name="description" content="The Rook and The Raven have played four Dungeons and Dragons 5th edition campaigns. Select one from the list to follow along!"/>
+          <link rel="canonical" href="https://therookandtheraven.com/campaigns/" />
+        </Helmet>
         <SiteNav />
         <section className="campagins">
           <nav className="campaign-listing">

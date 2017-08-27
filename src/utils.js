@@ -18,3 +18,10 @@ export function parseWPResponse(arr) {
 
   return arr;
 };
+
+export function fetchData(endpoint, handler) {
+  fetch(endpoint)
+    .then(res => res.json())
+    .then(res => parseWPResponse(res))
+    .then(handler);
+}
