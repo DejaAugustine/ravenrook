@@ -19,7 +19,7 @@ class Campaign extends Component {
     });
 
     if(campaign) {
-      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/session?categories=" + campaign.id + "&filter[orderby]=date&order=desc")
+      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/session?per_page=100&categories=" + campaign.id + "&filter[orderby]=date&order=desc")
         .then(res => res.json())
         .then(res => parseWPResponse(res))
         .then(res => {
@@ -28,14 +28,11 @@ class Campaign extends Component {
             sessions: res
           });
 
+          var index = this.state.index || {};
           for(var i=0;i<res.length;i++) {
             var session = res[i];
-            var index = this.state.index || {};
 
             index[session.slug] = i;
-            this.setState({
-              index: index
-            });
 
             if(props.location.pathname.endsWith(session.slug)) {
               this.setState({
@@ -43,6 +40,9 @@ class Campaign extends Component {
               });
             }
           };
+          this.setState({
+            index: index
+          });
         });
     }
   }

@@ -5,28 +5,41 @@ import { parseWPResponse } from './utils.js';
 import './NPCs.css';
 
 class NPCs extends Component {
-  componentWillMount() {
-    this.setState({
-      characters: [],
-      present: []
-    });
-  }
 
-  componentWillReceiveProps(props) {
-    if(props === this.props) {
-      return;
-    }
+  parseCampaign(props) {
+    console.log("NPC:parseCampaign", props);
+    this.setState({
+      campaign: props.campaign
+    });
 
     if(props.campaign) {
-      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/character?filter[orderby]=title&order=asc&categories_exclude=10&categories=" + props.campaign.id)
+      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/character?per_page=100&filter[orderby]=title&order=asc&categories_exclude=10&categories=" + props.campaign.id)
         .then(res => res.json())
         .then(res => parseWPResponse(res))
         .then(res => {
           this.setState({
             characters: res
           });
+
+          var index = this.state.index || {};
+
+          for(var i=0;i<res.length;i++) {
+            var character = res[i];
+            index[character.id] = i;
+          };
+
+          this.setState({
+            index: index
+          });
         });
     }
+  }
+
+  parseSession(props) {
+    console.log("NPC:parseSession", props);
+    this.setState({
+      session: props.session
+    });
 
     if(props.session) {
       var ids = props.session.acf.npcs.map(function(character, index){
@@ -39,22 +52,38 @@ class NPCs extends Component {
     }
   }
 
+  componentWillMount() {
+    this.setState({
+      characters: [],
+      present: []
+    });
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(!this.state.campaign || this.state.campaign !== newProps.campaign) {
+      this.parseCampaign(newProps);
+    }
+
+    if(!this.state.session || this.state.session !== newProps.session) {
+      this.parseSession(newProps);
+    }
+  }
+
   render() {
+    if(!this.state.index) return(null);
+
     const state = this.state;
-    const npcList = state.characters.map(function(character, index){
-      const present = state.present.length > 0 ? state.present.includes(character.id) : true;
-      if(present) {
-        return (
-          <Link key={index} to={'/characters/' + character.slug} className="npc" style={{backgroundImage: 'url(' + character.acf.token + ')'}}>
-            <p>
-              {character.acf.short_name || character.title.rendered} - {character.acf.race_class}<br />
-              {character.acf.summary}
-            </p>
-          </Link>
-        );
-      } else {
-        return (null);
-      }
+    console.log("NPC:render", this.state.index, this.state.present, this.state.characters);
+    const npcList = state.present.map(function(characterId, index){
+      const character = state.characters[state.index[characterId]];
+      return (
+        <Link key={index} to={'/characters/' + character.slug} className="npc" style={{backgroundImage: 'url(' + character.acf.token + ')'}}>
+          <p>
+            {character.acf.short_name || character.title.rendered} - {character.acf.race_class}<br />
+            {character.acf.summary}
+          </p>
+        </Link>
+      );
     });
 
     return (

@@ -16,14 +16,11 @@ class CampaignListing extends Component {
           campaigns: res
         });
 
+        var index = this.state.index || {};
         for(var i=0;i<res.length;i++) {
           const campaign = res[i];
-          var index = this.state.index || {};
 
           index[campaign.slug] = i;
-          this.setState({
-            index: index
-          });
 
           if(props.location.pathname.indexOf(campaign.slug) !== -1) {
             this.setState({
@@ -31,6 +28,9 @@ class CampaignListing extends Component {
             });
           }
         }
+        this.setState({
+          index: index
+        });
       });
   }
 
