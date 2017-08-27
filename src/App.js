@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
   BrowserRouter,
   Route,
-  Switch,
-  Link } from 'react-router-dom';
+  Switch } from 'react-router-dom';
 
 
 import Homepage from './Homepage.js';

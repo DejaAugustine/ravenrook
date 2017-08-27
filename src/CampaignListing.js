@@ -6,50 +6,45 @@ import './CampaignListing.css';
 
 class CampaignListing extends Component {
 
-  parseCampaigns(props) {
-    console.log("PC", props);
+  fetchCampaigns(props) {
+    console.log("CampaignListing:parseCampaigns", props);
 
-    if(!this.state || this.state.campaigns.length == 0) {
-      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/categories?parent=16")
-        .then(res => res.json())
-        .then(res => {
+    fetch("https://api.therookandtheraven.com/wp-json/wp/v2/categories?parent=16")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          campaigns: res
+        });
+
+        for(var i=0;i<res.length;i++) {
+          const campaign = res[i];
+          var index = this.state.index || {};
+
+          index[campaign.slug] = i;
           this.setState({
-            campaigns: res
+            index: index
           });
 
-          for(var i=0;i<res.length;i++) {
-            const campaign = res[i];
-            var index = this.state.index || {};
-
-            index[campaign.slug] = i;
+          if(props.location.pathname.indexOf(campaign.slug) !== -1) {
             this.setState({
-              index: index
+              active: campaign
             });
-
-            if(props.location.pathname.indexOf(campaign.slug) !== -1) {
-              this.setState({
-                active: campaign
-              });
-            }
           }
-        });
+        }
+      });
+  }
+
+  componentWillMount() {
+    if(!this.state) {
+      this.setState({
+        campaigns: []
+      });
     }
-  }
 
-  componentDidMount() {
-    this.parseCampaigns(this.props);
-  }
-
-  componentWillReceiveProps(newProps) {
-    if(newProps === this.props) return;
-
-    console.log("CampaignListing:WRP", { ...this.props, ...newProps });
-    this.parseCampaigns({ ...this.props, ...newProps });
+    this.fetchCampaigns(this.props);
   }
 
   render() {
-    console.log("CampaignListing:Render", this.state);
-    if(!this.state) return(null);
     const state = this.state;
 
     const campaignList = state.campaigns.map((campaign, index) => {

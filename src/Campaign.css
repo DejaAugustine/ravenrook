@@ -14,14 +14,13 @@ h2 {
   font-weight: normal;
   letter-spacing: 0.1em;
   margin: 0 auto;
-  padding-top: 0.5em;
 }
 
 h3 {
   color: #FFFFFF;
   font-size: 1.5em;
   font-weight: normal;
-  margin: 0 auto 1.5em;
+  margin: 0 auto;
 }
 
 main {
@@ -41,10 +40,12 @@ main {
   padding-left: 10em;
 }
 
-.campaign nav {
-  padding: 2vw;
+main nav {
+  padding: 2em;
+  clear: both;
+  text-align: center;
 }
 
-.campaign nav a {
+main .menu a {
   color: #FFFFFF;
 }

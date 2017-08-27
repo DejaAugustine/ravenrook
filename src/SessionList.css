@@ -3,9 +3,6 @@
 }
 
 .session-listing .menu-item {
-  background-color: #CCCCCC;
-  background-size: cover;
-  background-position: center center;
   border: 2px solid black;
   margin: 20px 10px;
   height: 15em;
@@ -15,6 +12,9 @@
 }
 
 .session-listing .menu-item a {
+  background-color: #CCCCCC;
+  background-size: cover;
+  background-position: center center;
   position: absolute;
   top: 0;
   left: 0;

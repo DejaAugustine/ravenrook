@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import SessionList from './SessionList.js';
 import SessionDetail from './SessionDetail.js';
 import { parseWPResponse } from './utils.js';
@@ -7,9 +7,10 @@ import './Campaign.css';
 
 class Campaign extends Component {
 
-  parseCampaign(campaignSlug, props) {
+  parseCampaign(props) {
     if(!props.campaignIndex) return;
-    
+
+    const campaignSlug = props.match.params.campaignSlug;
     const campaignId = props.campaignIndex[campaignSlug];
     const campaign = props.campaigns[campaignId];
 
@@ -24,21 +25,21 @@ class Campaign extends Component {
         .then(res => {
           console.log("parseCampaign:Fetch");
           this.setState({
-            items: res
+            sessions: res
           });
 
           for(var i=0;i<res.length;i++) {
-            var item = res[i];
+            var session = res[i];
             var index = this.state.index || {};
 
-            index[item.slug] = i;
+            index[session.slug] = i;
             this.setState({
               index: index
             });
 
-            if(props.location.pathname.endsWith(item.slug)) {
+            if(props.location.pathname.endsWith(session.slug)) {
               this.setState({
-                active: item
+                active: session
               });
             }
           };
@@ -47,53 +48,29 @@ class Campaign extends Component {
   }
 
   componentWillMount() {
-    this.setState({
-      items: []
-    });
-  }
-
-  componentDidMount() {
-    const campaignSlug = this.props.match.params.campaignSlug;
-
-    this.setState({
-      campaignSlug: campaignSlug
-    });
-
-    if(campaignSlug && this.props.campaigns.length > 0) {
-      this.parseCampaign(campaignSlug, this.props);
+    if(!this.state) {
+      this.setState({});
     }
+
+    this.parseCampaign(this.props);
   }
 
   componentWillReceiveProps(newProps) {
-    if(this.props === newProps) {
-      return;
-    }
+    if(this.state.index && this.state.index === newProps.sessionIndex) return;
 
-    const campaignSlug = newProps.match.params.campaignSlug || this.state.campaignSlug;
-
-    if(campaignSlug && newProps.campaigns.length > 0) {
-      this.parseCampaign(campaignSlug, newProps);
-    }
+    this.parseCampaign(newProps);
   }
 
   render() {
     const campaign = this.state.campaign;
-    const name = campaign ? campaign.name : '';
-    const sessions = this.state.items;
+    const sessions = this.state.sessions;
     const index = this.state.index;
 
     return (
-      <section className="campaign">
-        <header>
-          <h2>{name}</h2>
-        </header>
-
-        <Switch>
-          <Route path={this.props.match.url} exact render={props => <SessionList campaign={campaign} sessions={sessions} {...props} />} />
-          <Route path={this.props.match.url + '/:sessionSlug'} render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={this.props.match.url} {...props} />} />
-        </Switch>
-
-      </section>
+      <Switch>
+        <Route path={this.props.match.url} exact render={props => <SessionList campaign={campaign} sessions={sessions} {...props} />} />
+        <Route path={this.props.match.url + '/:sessionSlug'} render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={this.props.match.url} {...props} />} />
+      </Switch>
     );
   }
 };

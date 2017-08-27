@@ -5,18 +5,12 @@ import { parseWPResponse } from './utils.js';
 import './Party.css';
 
 class Party extends Component {
-  componentWillMount() {
-    this.setState({
-      characters: [],
-      present: []
-    });
-  }
-
-  componentWillReceiveProps(props) {
-    if(props === this.props)
-      return;
-
+  parseCampaign(props) {
     if(props.campaign) {
+      this.setState({
+        campaign: props.campaign
+      });
+
       fetch("https://api.therookandtheraven.com/wp-json/wp/v2/character?filter[orderby]=title&order=asc&categories_exclude=11&categories=" + props.campaign.id)
         .then(res => res.json())
         .then(res => parseWPResponse(res))
@@ -26,24 +20,52 @@ class Party extends Component {
           });
         });
     }
+  }
 
+  parseSession(props) {
     if(props.session) {
       var ids = props.session.acf.characters.map(function(character, index){
         return character.ID;
       });
 
       this.setState({
+        session: props.session,
         present: ids
       });
     }
   }
 
+  componentWillMount() {
+    if(!this.state) {
+      this.setState({
+        characters: [],
+        present: []
+      });
+    }
+
+    this.parseCampaign(this.props);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(newProps.campaign && this.state.campaign !== newProps.campaign) {
+      this.parseCampaign(newProps);
+    }
+
+    if(newProps.session && (!this.state.session || newProps.session.id !== this.state.session.id)) {
+      this.parseSession(newProps);
+    }
+  }
+
   render() {
-    const state = this.state;
-    const partyList = this.state.characters.map(function(character, index){
-      const present = state.present.length > 0 ? state.present.includes(character.id) : true;
+
+    const characterList = this.state.characters;
+    const presentList = this.state.present;
+    const session = this.state.session;
+
+    const partyList = characterList.map(function(character, index){
+      const present = presentList.includes(character.id);
       var classes = ["menu-item", "character"];
-      if(!present) {
+      if(!present && session) {
         classes.push("absent");
       }
 

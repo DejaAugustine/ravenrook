@@ -5,19 +5,45 @@ import Party from './Party.js';
 import './SessionList.css';
 
 class SessionList extends Component {
+  componentWillMount() {
+    this.setState({
+      campaign: this.props.campaign,
+      sessions: this.props.sessions || []
+    });
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(!newProps.campaign) return;
+
+    this.setState({
+      campaign: newProps.campaign,
+      sessions: newProps.sessions || []
+    });
+  }
+
   render() {
-    const sessionList = this.props.sessions.map((session, index) => {
-      return <li key={index} className="menu-item" style={{backgroundImage: 'url(' + session.acf.cover_art + ')'}}><Link to={this.props.match.url + '/' + session.slug}><span>Session {session.acf.session_number}<br />{session.title.rendered}</span></Link></li>
+    const sessionList = this.state.sessions.map((session, index) => {
+      return (
+        <li key={index} className="menu-item">
+          <Link to={this.props.match.url + '/' + session.slug} style={{backgroundImage: 'url(' + session.acf.cover_art + ')'}}>
+            <span>
+              Session {session.acf.session_number}<br />
+              {session.title.rendered}
+            </span>
+          </Link>
+        </li>
+      );
     });
 
-    const description = this.props.campaign ? this.props.campaign.description : '';
+    const name = this.state.campaign ? this.state.campaign.name : '';
+    const description = this.state.campaign ? this.state.campaign.description : '';
 
-    console.log("SessionList", description, this.props.campaign);
     return (
       <main>
         <header>
+          <h2>{name}</h2>
           <h3>Campaign Overview</h3>
-          <Party campaign={this.props.campaign} />
+          <Party campaign={this.state.campaign} />
         </header>
 
         <p className="description">{description}</p>
