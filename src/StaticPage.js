@@ -3,6 +3,8 @@ import { fetchData } from './utils.js';
 import SiteNav from './SiteNav.js';
 import { Helmet } from "react-helmet";
 
+import './StaticPage.css';
+
 class StaticPage extends Component {
   loadPage(props) {
     fetchData("https://api.therookandtheraven.com/wp-json/wp/v2/pages?include=" + props.pageId, res => {
@@ -39,13 +41,13 @@ class StaticPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="static">
         <Helmet>
           <title>{this.state.title}</title>
           <meta name="description" content={this.state.description}/>
         </Helmet>
         <SiteNav />
-        <main className="content" dangerouslySetInnerHTML={{__html: this.state.content}} />
+        <main dangerouslySetInnerHTML={{__html: this.state.content}} />
       </div>
     );
   }

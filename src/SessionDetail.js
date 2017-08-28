@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Party from './Party.js';
 import NPCs from './NPCs.js';
 
+import './SessionDetail.css';
+
 class SessionDetail extends Component {
 
   parseSession(props) {
@@ -73,7 +75,7 @@ class SessionDetail extends Component {
     const number = session ? "Session " + session.acf.session_number : "";
 
     return (
-      <main>
+      <main className="session-detail">
         <header>
           <h3>{name}: {number}</h3>
           <h2>{title}</h2>

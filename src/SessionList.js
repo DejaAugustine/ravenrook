@@ -41,7 +41,7 @@ class SessionList extends Component {
     const description = this.state.campaign ? this.state.campaign.description : '';
 
     return (
-      <main>
+      <main className="session-list">
         <header>
           <h2>{name}</h2>
           <h3>Campaign Overview</h3>

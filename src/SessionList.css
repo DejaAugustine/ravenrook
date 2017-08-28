@@ -1,3 +1,7 @@
+.session-list h3 {
+  font-family: "cronos-pro-display", sans-serif;
+}
+
 .session-listing {
   flex-wrap: wrap;
 }

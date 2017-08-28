@@ -1,11 +1,21 @@
-h1, h2, h3, h4, h5, h6 {
+body {
+  background-color: #FFFFFF;
   text-align: center;
 }
 
-body {
-  background-color: #FFFFFF;
-  font-family: "omnes-pro", sans-serif;
+p {
+  font-family: "bookmania", serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
   text-align: center;
+  font-family: "litania", serif;
+  letter-spacing: 0.1em;
+}
+
+h4, h5, h6 {
+  font-family: "cronos-pro-display", sans-serif;
+  font-weight: normal;
 }
 
 a {
@@ -47,6 +57,8 @@ main {
   margin: 0;
   list-style: none;
   padding: 0;
+  font-family: "cronos-pro-display";
+  letter-spacing: 0.1em;
 }
 
 .menu .menu-item {
