@@ -27,7 +27,7 @@ class StaticPage extends Component {
         content: ''
       });
     }
-    
+
     this.loadPage(this.props);
   }
 
@@ -42,7 +42,7 @@ class StaticPage extends Component {
       <div>
         <Helmet>
           <title>{this.state.title}</title>
-          <meta name="description" content="{this.state.description}"/>
+          <meta name="description" content={this.state.description}/>
         </Helmet>
         <SiteNav />
         <main className="content" dangerouslySetInnerHTML={{__html: this.state.content}} />
