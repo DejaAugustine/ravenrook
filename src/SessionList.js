@@ -48,7 +48,7 @@ class SessionList extends Component {
           <Party campaign={this.state.campaign} path={this.props.match.url} />
         </header>
 
-        <p className="description">{description}</p>
+        <p className="description" dangerouslySetInnerHTML={{__html: description}} />
 
         <ul className="session-listing menu">
           {sessionList}

@@ -55,7 +55,8 @@ class Character extends Component {
           <h3>{character.acf.race_class}</h3>
         </header>
 
-        <section className="content" dangerouslySetInnerHTML={{__html: character.content.rendered}} />
+        <section className="content narrow" dangerouslySetInnerHTML={{__html: character.content.rendered}} />
+        <p style={{clear: "both"}} />
       </main>
     );
   }

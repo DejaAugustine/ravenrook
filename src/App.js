@@ -29,7 +29,7 @@ class App extends Component {
           </Switch>
 
           <footer>
-            <p>Follow us on twitter: @dejaaugustine, @amberaugustine, and @therooktheraven</p>
+            <p>Follow us on twitter <span className="twitter">@dejaaugustine</span>, <span className="twitter">@amberaugustine</span>, and <span className="twitter">@therooktheraven</span></p>
             <p>
               <small>original content copyright &copy; 2015-2017 Déja Augustine and the respective party members</small>
               <br />
