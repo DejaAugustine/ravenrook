@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
-import Homepage from './Homepage.js';
+import StaticPage from './StaticPage.js';
 import CampaignListing from './CampaignListing.js';
-import ContactForm from './ContactForm.js';
 
 import './App.css';
 
@@ -24,9 +23,9 @@ class App extends Component {
           </header>
 
           <Switch>
-            <Route path="/" exact component={Homepage} />
+            <Route path="/" exact render={props => <StaticPage pageId="169" {...props} />} />
             <Route path="/campaigns" component={CampaignListing} />
-            <Route path="/contact" component={ContactForm} />
+            <Route path="/contact" exact render={props => <StaticPage pageId="174" {...props} />} />
           </Switch>
 
           <footer>

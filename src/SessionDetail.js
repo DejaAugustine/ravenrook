@@ -38,6 +38,7 @@ class SessionDetail extends Component {
       this.setState({
         sessionSlug: sessionSlug,
         campaign: campaign,
+        campaignPath: campaignPath,
         sessions: sessions,
         session: session,
         index: index,
@@ -76,10 +77,10 @@ class SessionDetail extends Component {
         <header>
           <h3>{name}: {number}</h3>
           <h2>{title}</h2>
-          <Party campaign={campaign} session={session} />
+          <Party campaign={campaign} session={session} path={this.state.campaignPath} />
         </header>
 
-        <NPCs campaign={campaign} session={session} />
+        <NPCs campaign={campaign} session={session} path={this.state.campaignPath} />
 
         <section className="content" dangerouslySetInnerHTML={{__html: body}} />
 

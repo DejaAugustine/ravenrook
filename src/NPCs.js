@@ -9,7 +9,8 @@ class NPCs extends Component {
   parseCampaign(props) {
     console.log("NPC:parseCampaign", props);
     this.setState({
-      campaign: props.campaign
+      campaign: props.campaign,
+      path: props.path
     });
 
     if(props.campaign) {
@@ -77,7 +78,7 @@ class NPCs extends Component {
     const npcList = state.present.map(function(characterId, index){
       const character = state.characters[state.index[characterId]];
       return (
-        <Link key={index} to={'/characters/' + character.slug} className="npc" style={{backgroundImage: 'url(' + character.acf.token + ')'}}>
+        <Link key={index} to={state.path + '/characters/' + character.slug} className="npc" style={{backgroundImage: 'url(' + character.acf.token + ')'}}>
           <p>
             {character.acf.short_name || character.title.rendered} - {character.acf.race_class}<br />
             {character.acf.summary}

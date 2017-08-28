@@ -7,6 +7,7 @@ import './SessionList.css';
 class SessionList extends Component {
   componentWillMount() {
     this.setState({
+      path: this.props.match.path,
       campaign: this.props.campaign,
       sessions: this.props.sessions || []
     });
@@ -16,6 +17,7 @@ class SessionList extends Component {
     if(!newProps.campaign) return;
 
     this.setState({
+      path: newProps.match.path,
       campaign: newProps.campaign,
       sessions: newProps.sessions || []
     });
@@ -43,7 +45,7 @@ class SessionList extends Component {
         <header>
           <h2>{name}</h2>
           <h3>Campaign Overview</h3>
-          <Party campaign={this.state.campaign} />
+          <Party campaign={this.state.campaign} path={this.props.match.url} />
         </header>
 
         <p className="description">{description}</p>

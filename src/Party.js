@@ -6,6 +6,12 @@ import './Party.css';
 
 class Party extends Component {
   parseCampaign(props) {
+    if(props.path) {
+      this.setState({
+        path: props.path
+      });
+    }
+
     if(props.campaign) {
       this.setState({
         campaign: props.campaign
@@ -57,10 +63,10 @@ class Party extends Component {
   }
 
   render() {
-
     const characterList = this.state.characters;
     const presentList = this.state.present;
     const session = this.state.session;
+    const path = this.state.path;
 
     const partyList = characterList.map(function(character, index){
       const present = presentList.includes(character.id);
@@ -69,7 +75,7 @@ class Party extends Component {
         classes.push("absent");
       }
 
-      return <li key={index} className={classes.join(' ')} style={{backgroundImage: 'url(' + character.acf.token + ')'}}><Link to={'/characters/' + character.slug}><span>{character.acf.short_name || character.title.rendered}</span></Link></li>
+      return <li key={index} className={classes.join(' ')} style={{backgroundImage: 'url(' + character.acf.token + ')'}}><Link to={path + '/characters/' + character.slug}><span>{character.acf.short_name || character.title.rendered}</span></Link></li>
     });
 
     return (

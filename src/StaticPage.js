@@ -3,27 +3,38 @@ import { fetchData } from './utils.js';
 import SiteNav from './SiteNav.js';
 import { Helmet } from "react-helmet";
 
-class Homepage extends Component {
-  componentWillMount() {
-    const $this = this;
-
-    this.setState({
-      title: '',
-      description: '',
-      content: ''
-    });
-
-    fetchData("https://api.therookandtheraven.com/wp-json/wp/v2/pages?include=169", function(res) {
+class StaticPage extends Component {
+  loadPage(props) {
+    fetchData("https://api.therookandtheraven.com/wp-json/wp/v2/pages?include=" + props.pageId, res => {
       const page = res[0];
 
       if(page) {
-        $this.setState({
+        this.setState({
           description: page.yoast.metadesc,
           title: page.yoast.title,
-          content: page.content.rendered
+          content: page.content.rendered,
+          pageId: props.pageId
         });
       }
     });
+  }
+
+  componentWillMount() {
+    if(!this.state) {
+      this.setState({
+        title: '',
+        description: '',
+        content: ''
+      });
+    }
+    
+    this.loadPage(this.props);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(this.state.pageId && this.state.pageId === newProps.pageId) return;
+
+    this.loadPage(newProps);
   }
 
   render() {
@@ -40,4 +51,4 @@ class Homepage extends Component {
   }
 };
 
-export default Homepage;
+export default StaticPage;

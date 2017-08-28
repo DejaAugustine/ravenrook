@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import SessionList from './SessionList.js';
 import SessionDetail from './SessionDetail.js';
+import Character from './Character.js';
 import { parseWPResponse } from './utils.js';
 import './Campaign.css';
 
@@ -69,6 +70,7 @@ class Campaign extends Component {
     return (
       <Switch>
         <Route path={this.props.match.url} exact render={props => <SessionList campaign={campaign} sessions={sessions} {...props} />} />
+        <Route path={this.props.match.url + '/characters/:characterSlug'} render={props => <Character campaign={campaign} {...props} />} />
         <Route path={this.props.match.url + '/:sessionSlug'} render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={this.props.match.url} {...props} />} />
       </Switch>
     );
