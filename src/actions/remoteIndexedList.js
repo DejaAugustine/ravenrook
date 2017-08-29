@@ -1,7 +1,7 @@
 import { STORE_LIST, SELECT_ITEM } from './types';
 import parseWPResponse from '../utils';
 
-const storeList = (prefix,list, index) => {
+const storeList = (prefix, list, index) => {
   return {
     type: STORE_LIST,
     prefix: prefix,

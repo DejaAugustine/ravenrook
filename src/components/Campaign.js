@@ -46,7 +46,7 @@ class Campaign extends Component {
           });
         });
 
-      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/campaign_pages?categories=" + campaign.id + "&filter[orderby]=date&order=desc")
+      /*fetch("https://api.therookandtheraven.com/wp-json/wp/v2/campaign_pages?categories=" + campaign.id + "&filter[orderby]=date&order=desc")
         .then(res => res.json())
         .then(res => parseWPResponse(res))
         .then(res => {
@@ -63,7 +63,7 @@ class Campaign extends Component {
           this.setState({
             pindex: pindex
           });
-        });
+        });*/
     }
 
     this.setState({
@@ -72,35 +72,44 @@ class Campaign extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchPages();
+    if(this.props.campaign)
+      this.props.fetchPages(this.props.campaign.id);
 
-    if(!this.state) {
-      this.setState({});
-    }
-
-    this.parseCampaign(this.props);
+    this.props.selectCampaign(this.props.match.params.campaignSlug);
   }
 
   componentWillReceiveProps(newProps) {
-    if(this.state.index && this.state.index === newProps.sessionIndex) return;
 
-    this.parseCampaign(newProps);
+    console.log("Campaign:WRP", newProps);
+    if(!newProps.campaignSlug)
+      newProps.selectCampaign(newProps.match.params.campaignSlug);
+
+    if(newProps.campaign) {
+      if(!newProps.pages) {
+        newProps.fetchPages(newProps.campaign.id);
+      }
+
+      if(!newProps.sessions) {
+        newProps.fetchSessions(newProps.campaign.id);
+      }
+    }
   }
 
   render() {
     console.log("Campaign", this.props);
-    const campaign = this.state.campaign;
-    const sessions = this.state.sessions;
-    const pages = this.state.pages;
-    const index = this.state.index;
-    const pindex = this.state.pindex;
+    const campaign = this.props.campaign;
+    const sessions = this.props.sessions;
+    const pages = this.props.pages;
+    const index = this.props.sessions_index;
+    const pindex = this.props.pages_index;
+    const path = this.props.campaign_path;
 
     return (
       <Switch>
         <Route path={this.props.match.url} exact render={props => <CampaignDetail campaign={campaign} sessions={sessions} pages={pages} {...props} />} />
         <Route path={this.props.match.url + '/characters/:characterSlug'} render={props => <Character campaign={campaign} {...props} />} />
         <Route path={this.props.match.url + '/campaign/:pageSlug'} render={props => <CampaignPage campaign={campaign} pages={pages}  pageIndex={pindex} {...props} />} />
-        <Route path={this.props.match.url + '/:sessionSlug'} render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={this.props.match.url} {...props} />} />
+        <Route path={this.props.match.url + '/:sessionSlug'} render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={path} {...props} />} />
       </Switch>
     );
   }

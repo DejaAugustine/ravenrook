@@ -9,7 +9,7 @@ class Party extends Component {
     if(props.campaign) {
       this.setState({
         campaign: props.campaign,
-        path: props.campaign.path
+        path: props.path
       });
 
       fetch("https://api.therookandtheraven.com/wp-json/wp/v2/character?filter[orderby]=title&order=asc&categories_exclude=11&categories=" + props.campaign.id)

@@ -7,8 +7,8 @@ import CampaignListing from '../components/CampaignListing';
 function mapStateToProps(state) {
   console.log("CL:mSTP", state);
   return {
-    campaigns: state.campaigns.list || [],
-    campaignIndex: state.campaigns.index || []
+    campaigns: state.campaigns_list || [],
+    campaignIndex: state.campaigns_index || []
   }
 }
 
