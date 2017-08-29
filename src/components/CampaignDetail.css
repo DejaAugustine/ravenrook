@@ -2,6 +2,20 @@
   font-family: "cronos-pro-display", sans-serif;
 }
 
+.session-list .description {
+  text-align: left;
+  margin-top: 2em;
+}
+
+.session-list .description h4 {
+  border: 1px solid #FFFFFF;
+}
+
+.session-list .description h5 {
+  font-size: 1em;
+  border-bottom: 1px solid #FFFFFF;
+}
+
 .session-listing.menu {
   margin-bottom: 2em;
 }

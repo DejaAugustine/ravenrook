@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
-import StaticPage from './StaticPage.js';
-import CampaignListing from './CampaignListing.js';
+import StaticPage from './StaticPage';
+import CampaignListing from './CampaignListing';
 
 import './App.css';
 

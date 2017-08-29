@@ -32,12 +32,12 @@ class CampaignPage extends Component {
     const page = pageId !== undefined ? this.state.pages[pageId] : {};
     const title = page.title ? page.title.rendered : '';
     const body = page.content ? page.content.rendered : '';
-    
+
     return (
       <main className="session-list">
         <header>
-          <h2><Link to={path}>{name}</Link></h2>
-          <h3>{title}</h3>
+          <h3><Link to={path}>{name}</Link></h3>
+          <h2>{title}</h2>
         </header>
 
         <p className="description" dangerouslySetInnerHTML={{__html: body}} />

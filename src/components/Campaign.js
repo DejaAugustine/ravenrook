@@ -4,7 +4,7 @@ import CampaignDetail from './CampaignDetail.js';
 import CampaignPage from './CampaignPage.js';
 import SessionDetail from './SessionDetail.js';
 import Character from './Character.js';
-import { parseWPResponse } from './utils.js';
+import { parseWPResponse } from '../utils/utils.js';
 import './Campaign.css';
 
 class Campaign extends Component {
