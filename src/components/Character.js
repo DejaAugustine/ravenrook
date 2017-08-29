@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { parseWPResponse } from '../utils/utils.js';
+import parseWPResponse from '../utils/';
 import Party from './Party.js';
 
 class Character extends Component {

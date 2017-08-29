@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 import StaticPage from './StaticPage';
-import CampaignListing from './CampaignListing';
+import CampaignListing from '../containers/CampaignListing';
 
 import './App.css';
 

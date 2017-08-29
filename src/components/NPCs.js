@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { parseWPResponse } from '../utils/utils.js';
+import parseWPResponse from '../utils';
 
 import './NPCs.css';
 

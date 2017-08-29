@@ -14,6 +14,10 @@ export function parseWPResponse(arr) {
     if(arr[i].content && arr[i].content.rendered) {
       arr[i].content.rendered = decodeHtmlEntities(arr[i].content.rendered);
     }
+
+    if(arr[i].description) {
+      arr[i].description = decodeHtmlEntities(arr[i].description);
+    }
   }
 
   return arr;
@@ -25,3 +29,5 @@ export function fetchData(endpoint, handler) {
     .then(res => parseWPResponse(res))
     .then(handler);
 }
+
+export default parseWPResponse;

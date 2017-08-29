@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Route, NavLink, Switch } from 'react-router-dom';
 import { Helmet } from "react-helmet";
-import SiteNav from './SiteNav.js';
-import Campaign from './Campaign.js';
+
+import SiteNav from './SiteNav';
+import Campaign from '../containers/Campaign';
+
 import './CampaignListing.css';
 
 class CampaignListing extends Component {
 
-  fetchCampaigns(props) {
+  /*fetchCampaigns(props) {
     fetch("https://api.therookandtheraven.com/wp-json/wp/v2/categories?parent=16")
       .then(res => res.json())
       .then(res => {
@@ -41,13 +43,24 @@ class CampaignListing extends Component {
     }
 
     this.fetchCampaigns(this.props);
+  }*/
+
+  componentWillMount() {
+    this.props.fetchCampaigns();
+  }
+
+  renderCampaignList() {
+    if(this.props.campaigns) {
+      console.log("rCL", this.props);
+      return this.props.campaigns.map((campaign, index) => {
+        return <li key={index} className="menu-item"><NavLink to={'/campaigns/' + campaign.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}><span>{campaign.name}</span></NavLink></li>
+      });
+    } else {
+      return (null);
+    }
   }
 
   render() {
-    const campaignList = this.state.campaigns.map((campaign, index) => {
-      return <li key={index} className="menu-item"><NavLink to={'/campaigns/' + campaign.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}><span>{campaign.name}</span></NavLink></li>
-    });
-
     return (
       <div>
         <Helmet>
@@ -59,12 +72,12 @@ class CampaignListing extends Component {
         <section className="campagins">
           <nav className="campaign-listing">
             <ul className="menu">
-              {campaignList}
+              {this.renderCampaignList()}
             </ul>
           </nav>
 
           <Switch>
-            <Route path={this.props.match.url + '/:campaignSlug'} render={props => <Campaign campaigns={this.state.campaigns} campaignIndex={this.state.index} {...props} />} />
+            <Route path={this.props.match.url + '/:campaignSlug'} render={props => <Campaign campaigns={this.props.campaigns} campaignIndex={this.props.campaignIndex} {...props} />} />
           </Switch>
         </section>
       </div>

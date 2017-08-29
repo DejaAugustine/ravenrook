@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
-import campaign from './campaign';
 
-const appReducer = combineReducers({
-  campaign
-});
+import ListReducer from './ListReducer';
+
+const appReducer = ListReducer;
+
+/*combineReducers({
+  lists: ListReducer,
+  sessions: ListReducer,
+  campaignPages: ListReducer
+});*/
 
 export default appReducer;

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import CampaignDetail from './CampaignDetail.js';
-import CampaignPage from './CampaignPage.js';
-import SessionDetail from './SessionDetail.js';
-import Character from './Character.js';
-import { parseWPResponse } from '../utils/utils.js';
+
+import CampaignDetail from './CampaignDetail';
+import CampaignPage from './CampaignPage';
+import SessionDetail from './SessionDetail';
+import Character from './Character';
+
+import parseWPResponse from '../utils';
+
 import './Campaign.css';
 
 class Campaign extends Component {
@@ -15,13 +18,9 @@ class Campaign extends Component {
     const campaignSlug = props.match.params.campaignSlug;
     const campaignId = props.campaignIndex[campaignSlug];
     var campaign = props.campaigns[campaignId];
-    campaign.path = props.match.url;
-
-    this.setState({
-      campaign: campaign
-    });
 
     if(campaign) {
+      campaign.path = props.match.url;
       fetch("https://api.therookandtheraven.com/wp-json/wp/v2/session?per_page=100&categories=" + campaign.id + "&filter[orderby]=date&order=desc")
         .then(res => res.json())
         .then(res => parseWPResponse(res))
@@ -66,9 +65,15 @@ class Campaign extends Component {
           });
         });
     }
+
+    this.setState({
+      campaign: campaign
+    });
   }
 
   componentWillMount() {
+    this.props.fetchPages();
+
     if(!this.state) {
       this.setState({});
     }
@@ -83,6 +88,7 @@ class Campaign extends Component {
   }
 
   render() {
+    console.log("Campaign", this.props);
     const campaign = this.state.campaign;
     const sessions = this.state.sessions;
     const pages = this.state.pages;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchData } from '../utils/utils.js';
+import { fetchData } from '../utils';
 import SiteNav from './SiteNav.js';
 import { Helmet } from "react-helmet";
 
