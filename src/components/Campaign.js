@@ -81,15 +81,13 @@ class Campaign extends Component {
   componentWillReceiveProps(newProps) {
 
     console.log("Campaign:WRP", newProps);
-    if(!newProps.campaignSlug)
+    if(newProps.match.params.campaignSlug && newProps.match.params.campaignSlug !== this.props.match.params.campaignSlug) {
       newProps.selectCampaign(newProps.match.params.campaignSlug);
+    }
 
     if(newProps.campaign) {
-      if(!newProps.pages) {
+      if(!this.props.campaign || newProps.campaign.id !== this.props.campaign.id) {
         newProps.fetchPages(newProps.campaign.id);
-      }
-
-      if(!newProps.sessions) {
         newProps.fetchSessions(newProps.campaign.id);
       }
     }

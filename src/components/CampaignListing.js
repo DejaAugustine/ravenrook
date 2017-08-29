@@ -77,7 +77,7 @@ class CampaignListing extends Component {
           </nav>
 
           <Switch>
-            <Route path={this.props.match.url + '/:campaignSlug'} render={props => <Campaign campaigns={this.props.campaigns} campaignIndex={this.props.campaignIndex} {...props} />} />
+            <Route path={this.props.match.url + '/:campaignSlug'} component={Campaign} />
           </Switch>
         </section>
       </div>
