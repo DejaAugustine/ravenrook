@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import SessionList from './SessionList.js';
+import CampaignDetail from './CampaignDetail.js';
+import CampaignPage from './CampaignPage.js';
 import SessionDetail from './SessionDetail.js';
 import Character from './Character.js';
 import { parseWPResponse } from './utils.js';
@@ -13,7 +14,8 @@ class Campaign extends Component {
 
     const campaignSlug = props.match.params.campaignSlug;
     const campaignId = props.campaignIndex[campaignSlug];
-    const campaign = props.campaigns[campaignId];
+    var campaign = props.campaigns[campaignId];
+    campaign.path = props.match.url;
 
     this.setState({
       campaign: campaign
@@ -24,7 +26,6 @@ class Campaign extends Component {
         .then(res => res.json())
         .then(res => parseWPResponse(res))
         .then(res => {
-          console.log("parseCampaign:Fetch");
           this.setState({
             sessions: res
           });
@@ -43,6 +44,25 @@ class Campaign extends Component {
           };
           this.setState({
             index: index
+          });
+        });
+
+      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/campaign_pages?categories=" + campaign.id + "&filter[orderby]=date&order=desc")
+        .then(res => res.json())
+        .then(res => parseWPResponse(res))
+        .then(res => {
+          this.setState({
+            pages: res
+          });
+
+          var pindex = this.state.pindex || {};
+          for(var i=0;i<res.length;i++) {
+            var page = res[i];
+
+            pindex[page.slug] = i;
+          };
+          this.setState({
+            pindex: pindex
           });
         });
     }
@@ -65,12 +85,15 @@ class Campaign extends Component {
   render() {
     const campaign = this.state.campaign;
     const sessions = this.state.sessions;
+    const pages = this.state.pages;
     const index = this.state.index;
+    const pindex = this.state.pindex;
 
     return (
       <Switch>
-        <Route path={this.props.match.url} exact render={props => <SessionList campaign={campaign} sessions={sessions} {...props} />} />
+        <Route path={this.props.match.url} exact render={props => <CampaignDetail campaign={campaign} sessions={sessions} pages={pages} {...props} />} />
         <Route path={this.props.match.url + '/characters/:characterSlug'} render={props => <Character campaign={campaign} {...props} />} />
+        <Route path={this.props.match.url + '/campaign/:pageSlug'} render={props => <CampaignPage campaign={campaign} pages={pages}  pageIndex={pindex} {...props} />} />
         <Route path={this.props.match.url + '/:sessionSlug'} render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={this.props.match.url} {...props} />} />
       </Switch>
     );

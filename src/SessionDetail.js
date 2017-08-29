@@ -19,10 +19,19 @@ class SessionDetail extends Component {
       var prev = <span>&nbsp;</span>
       var next = <span>&nbsp;</span>
       var session;
+      var classes = {};
 
       if(index) {
         const i = index[sessionSlug];
         session = sessions[i];
+
+        for(var j=0;j<session.acf.characters.length;j++) {
+          const character = session.acf.characters[j];
+
+          // Post-redux, check character state for dead and joined
+
+          classes[character.ID] = "present";
+        }
 
         // If not first session
         if(i < sessions.length - 1) {
@@ -46,12 +55,14 @@ class SessionDetail extends Component {
         index: index,
         prevLink: prev,
         topLink: top,
-        nextLink: next
+        nextLink: next,
+        classes: classes
       });
     } else {
       this.setState({
         sessions: [],
-        index: {}
+        index: {},
+        classes: {}
       });
     }
   }
@@ -77,9 +88,9 @@ class SessionDetail extends Component {
     return (
       <main className="session-detail">
         <header>
-          <h3>{name}: {number}</h3>
+          <h3><Link to={this.state.campaignPath || "/"}>{name}: {number}</Link></h3>
           <h2>{title}</h2>
-          <Party campaign={campaign} session={session} path={this.state.campaignPath} />
+          <Party campaign={campaign} classes={this.state.classes} path={this.state.campaignPath} />
         </header>
 
         <NPCs campaign={campaign} session={session} path={this.state.campaignPath} />

@@ -8,8 +8,6 @@ import './CampaignListing.css';
 class CampaignListing extends Component {
 
   fetchCampaigns(props) {
-    console.log("CampaignListing:parseCampaigns", props);
-
     fetch("https://api.therookandtheraven.com/wp-json/wp/v2/categories?parent=16")
       .then(res => res.json())
       .then(res => {

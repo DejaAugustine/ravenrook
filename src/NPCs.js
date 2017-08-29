@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { parseWPResponse } from './utils.js';
 
 import './NPCs.css';
@@ -7,7 +6,6 @@ import './NPCs.css';
 class NPCs extends Component {
 
   parseCampaign(props) {
-    console.log("NPC:parseCampaign", props);
     this.setState({
       campaign: props.campaign,
       path: props.path
@@ -37,7 +35,6 @@ class NPCs extends Component {
   }
 
   parseSession(props) {
-    console.log("NPC:parseSession", props);
     this.setState({
       session: props.session
     });
@@ -74,16 +71,15 @@ class NPCs extends Component {
     if(!this.state.index) return(null);
 
     const state = this.state;
-    console.log("NPC:render", this.state.index, this.state.present, this.state.characters);
     const npcList = state.present.map(function(characterId, index){
       const character = state.characters[state.index[characterId]];
       return (
-        <Link key={index} to={state.path + '/characters/' + character.slug} className="npc" style={{backgroundImage: 'url(' + character.acf.token + ')'}}>
+        <div key={index} className="npc" style={{backgroundImage: 'url(' + character.acf.token + ')'}}>
           <p>
             {character.acf.short_name || character.title.rendered} - {character.acf.race_class}<br />
             {character.acf.summary}
           </p>
-        </Link>
+        </div>
       );
     });
 

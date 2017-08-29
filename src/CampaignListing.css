@@ -1,6 +1,8 @@
 .campaign-listing .menu-item {
   margin: 20px 10px;
   height: 10em;
+  min-width: 300px;
+  max-width: 30%;
   position: relative;
 }
 

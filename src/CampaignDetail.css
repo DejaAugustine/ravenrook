@@ -2,15 +2,15 @@
   font-family: "cronos-pro-display", sans-serif;
 }
 
-.session-listing {
-  flex-wrap: wrap;
+.session-listing.menu {
+  margin-bottom: 2em;
 }
 
 .session-listing .menu-item {
   border: 2px solid black;
   margin: 20px 10px;
   height: 15em;
-  min-width: 30%;
+  min-width: 360px;
   max-width: 30%;
   position: relative;
 }
@@ -37,4 +37,14 @@
   position: absolute;
   width: 100%;
   padding-left: 0.5em;
+}
+
+.campaign-pages .menu-item {
+  min-width: 200px;
+  max-width: 20%;
+  height: 10em;
+}
+
+.campaign-pages span {
+  padding: 0.5em;
 }

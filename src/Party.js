@@ -6,15 +6,10 @@ import './Party.css';
 
 class Party extends Component {
   parseCampaign(props) {
-    if(props.path) {
-      this.setState({
-        path: props.path
-      });
-    }
-
     if(props.campaign) {
       this.setState({
-        campaign: props.campaign
+        campaign: props.campaign,
+        path: props.campaign.path
       });
 
       fetch("https://api.therookandtheraven.com/wp-json/wp/v2/character?filter[orderby]=title&order=asc&categories_exclude=11&categories=" + props.campaign.id)
@@ -28,24 +23,11 @@ class Party extends Component {
     }
   }
 
-  parseSession(props) {
-    if(props.session) {
-      var ids = props.session.acf.characters.map(function(character, index){
-        return character.ID;
-      });
-
-      this.setState({
-        session: props.session,
-        present: ids
-      });
-    }
-  }
-
   componentWillMount() {
     if(!this.state) {
       this.setState({
         characters: [],
-        present: []
+        classes: this.props.classes
       });
     }
 
@@ -57,25 +39,28 @@ class Party extends Component {
       this.parseCampaign(newProps);
     }
 
-    if(newProps.session && (!this.state.session || newProps.session.id !== this.state.session.id)) {
-      this.parseSession(newProps);
+    if(newProps.classes && (newProps.classes !== this.state.classes)) {
+      this.setState({
+        classes: newProps.classes
+      });
     }
   }
 
   render() {
     const characterList = this.state.characters;
-    const presentList = this.state.present;
-    const session = this.state.session;
+    const characterClasses = this.state.classes;
     const path = this.state.path;
 
     const partyList = characterList.map(function(character, index){
-      const present = presentList.includes(character.id);
       var classes = ["menu-item", "character"];
-      if(!present && session) {
-        classes.push("absent");
+
+      if(characterClasses) {
+        classes = classes.concat(characterClasses[character.id]);
+      } else {
+        classes = classes.concat("present");
       }
 
-      return <li key={index} className={classes.join(' ')} style={{backgroundImage: 'url(' + character.acf.token + ')'}}><Link to={path + '/characters/' + character.slug}><span>{character.acf.short_name || character.title.rendered}</span></Link></li>
+      return <li key={index} className={classes.join(' ')} style={{backgroundImage: 'url(' + character.acf.token + ')'}}><Link to={path.replace(/\/$/, "") + '/characters/' + character.slug}><span>{character.acf.short_name || character.title.rendered}</span></Link></li>
     });
 
     return (
