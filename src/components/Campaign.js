@@ -6,70 +6,9 @@ import CampaignPage from './CampaignPage';
 import SessionDetail from './SessionDetail';
 import Character from './Character';
 
-import parseWPResponse from '../utils';
-
 import './Campaign.css';
 
 class Campaign extends Component {
-
-  parseCampaign(props) {
-    if(!props.campaignIndex) return;
-
-    const campaignSlug = props.match.params.campaignSlug;
-    const campaignId = props.campaignIndex[campaignSlug];
-    var campaign = props.campaigns[campaignId];
-
-    if(campaign) {
-      campaign.path = props.match.url;
-      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/session?per_page=100&categories=" + campaign.id + "&filter[orderby]=date&order=desc")
-        .then(res => res.json())
-        .then(res => parseWPResponse(res))
-        .then(res => {
-          this.setState({
-            sessions: res
-          });
-
-          var index = this.state.index || {};
-          for(var i=0;i<res.length;i++) {
-            var session = res[i];
-
-            index[session.slug] = i;
-
-            if(props.location.pathname.endsWith(session.slug)) {
-              this.setState({
-                active: session
-              });
-            }
-          };
-          this.setState({
-            index: index
-          });
-        });
-
-      /*fetch("https://api.therookandtheraven.com/wp-json/wp/v2/campaign_pages?categories=" + campaign.id + "&filter[orderby]=date&order=desc")
-        .then(res => res.json())
-        .then(res => parseWPResponse(res))
-        .then(res => {
-          this.setState({
-            pages: res
-          });
-
-          var pindex = this.state.pindex || {};
-          for(var i=0;i<res.length;i++) {
-            var page = res[i];
-
-            pindex[page.slug] = i;
-          };
-          this.setState({
-            pindex: pindex
-          });
-        });*/
-    }
-
-    this.setState({
-      campaign: campaign
-    });
-  }
 
   componentWillMount() {
     if(this.props.campaign)
@@ -80,7 +19,6 @@ class Campaign extends Component {
 
   componentWillReceiveProps(newProps) {
 
-    console.log("Campaign:WRP", newProps);
     if(newProps.match.params.campaignSlug && newProps.match.params.campaignSlug !== this.props.match.params.campaignSlug) {
       newProps.selectCampaign(newProps.match.params.campaignSlug);
     }
@@ -94,7 +32,6 @@ class Campaign extends Component {
   }
 
   render() {
-    console.log("Campaign", this.props);
     const campaign = this.props.campaign;
     const sessions = this.props.sessions;
     const pages = this.props.pages;

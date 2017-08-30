@@ -23,11 +23,21 @@ export function parseWPResponse(arr) {
   return arr;
 };
 
-export function fetchData(endpoint, handler) {
-  fetch(endpoint)
+export function fetchData(endpoint, handler, page = 1, data = []) {
+  const per_page = 100;
+  return fetch(endpoint + "&per_page=" + per_page + "&page=" + page)
     .then(res => res.json())
-    .then(res => parseWPResponse(res))
-    .then(handler);
+    .then(res => {
+      if(res.code !== 'rest_post_invalid_page_number')
+        data = [...data, ...res];
+
+      if(!res.length || res.length <= per_page) {
+        const results = parseWPResponse(data);
+        return handler(results);
+      }
+
+      return fetchData(endpoint, handler, page + 1, data);
+    })
 }
 
 export default parseWPResponse;

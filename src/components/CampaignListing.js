@@ -9,49 +9,12 @@ import './CampaignListing.css';
 
 class CampaignListing extends Component {
 
-  /*fetchCampaigns(props) {
-    fetch("https://api.therookandtheraven.com/wp-json/wp/v2/categories?parent=16")
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          campaigns: res
-        });
-
-        var index = this.state.index || {};
-        for(var i=0;i<res.length;i++) {
-          const campaign = res[i];
-
-          index[campaign.slug] = i;
-
-          if(props.location.pathname.indexOf(campaign.slug) !== -1) {
-            this.setState({
-              active: campaign
-            });
-          }
-        }
-        this.setState({
-          index: index
-        });
-      });
-  }
-
-  componentWillMount() {
-    if(!this.state) {
-      this.setState({
-        campaigns: []
-      });
-    }
-
-    this.fetchCampaigns(this.props);
-  }*/
-
   componentWillMount() {
     this.props.fetchCampaigns();
   }
 
   renderCampaignList() {
     if(this.props.campaigns) {
-      console.log("rCL", this.props);
       return this.props.campaigns.map((campaign, index) => {
         return <li key={index} className="menu-item"><NavLink to={'/campaigns/' + campaign.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}><span>{campaign.name}</span></NavLink></li>
       });

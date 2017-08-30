@@ -1,10 +1,10 @@
 import { STORE_LIST, SELECT_ITEM } from './types';
-import parseWPResponse from '../utils';
+import { fetchData } from '../utils';
 
-const storeList = (prefix, list, index) => {
+const storeList = (list, index, context) => {
   return {
     type: STORE_LIST,
-    prefix: prefix,
+    context: context,
     payload: {
       list: list,
       index: index
@@ -12,34 +12,31 @@ const storeList = (prefix, list, index) => {
   };
 };
 
-export function fetchList(prefix, endpoint) {
+export function fetchList(endpoint, context) {
   return dispatch => {
-    fetch(endpoint)
-      .then(res => res.json())
-      .then(res => parseWPResponse(res))
-      .then(list => {
-        var index = {};
-        for(var i=0;i<list.length;i++) {
-          const item = list[i];
-          index[item.slug] = i;
-        }
-        dispatch(storeList(prefix, list, index));
-      });
+    fetchData(endpoint, list => {
+      var index = {};
+      for(var i=0;i<list.length;i++) {
+        const item = list[i];
+        index[item.slug] = i;
+      }
+      dispatch(storeList(list, index, context));
+    });
   };
 }
 
-export const selectItemBySlug = (prefix, slug) => {
+export const selectItemBySlug = (slug, context) => {
   return {
     type: SELECT_ITEM,
-    prefix: prefix,
+    context: context,
     payload: {
       slug: slug
     }
   };
 };
 
-export function selectItem(prefix, slug) {
+export function selectItem(slug, context) {
   return dispatch => {
-    dispatch(selectItemBySlug(prefix, slug))
+    dispatch(selectItemBySlug(slug, context))
   };
 }
