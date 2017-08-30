@@ -1,55 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import parseWPResponse from '../utils';
 
 import './Party.css';
 
 class Party extends Component {
-  parseCampaign(props) {
-    if(props.campaign) {
-      this.setState({
-        campaign: props.campaign,
-        path: props.path
-      });
-
-      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/character?filter[orderby]=title&order=asc&categories_exclude=11&categories=" + props.campaign.id)
-        .then(res => res.json())
-        .then(res => parseWPResponse(res))
-        .then(res => {
-          this.setState({
-            characters: res
-          });
-        });
-    }
-  }
-
   componentWillMount() {
-    if(!this.state) {
-      this.setState({
-        characters: [],
-        classes: this.props.classes
-      });
-    }
-
-    this.parseCampaign(this.props);
+    console.log("PWM", this.props);
+    if(this.props.campaign)
+      this.props.fetchCharacters(this.props.campaign.id);
   }
 
   componentWillReceiveProps(newProps) {
-    if(newProps.campaign && this.state.campaign !== newProps.campaign) {
-      this.parseCampaign(newProps);
-    }
-
-    if(newProps.classes && (newProps.classes !== this.state.classes)) {
-      this.setState({
-        classes: newProps.classes
-      });
+    console.log("2")
+    if(newProps.campaign) {
+      console.log("5", this.props.campaign , "||", newProps)
+      if(!this.props.campaign || newProps.campaign.id !== this.props.campaign.id) {
+        console.log("9")
+        newProps.fetchCharacters(newProps.campaign.id);
+      }
     }
   }
 
   render() {
-    const characterList = this.state.characters;
-    const characterClasses = this.state.classes;
-    const path = this.state.path;
+    console.log("Party", this.props);
+    const characterList = this.props.characters ? this.props.characters : [];
+    const characterClasses = undefined; //this.props.sessions.classes || undefined;
+    const path = this.props.campaignPath;
 
     const partyList = characterList.map(function(character, index){
       var classes = ["menu-item", "character"];

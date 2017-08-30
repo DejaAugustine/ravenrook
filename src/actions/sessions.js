@@ -1,4 +1,4 @@
-import { fetchList, selectItem } from './remoteIndexedList';
+import { fetchList } from './remoteIndexedList';
 import { CONTEXT } from './types';
 
 export const fetchSessions = (campaignId) => {

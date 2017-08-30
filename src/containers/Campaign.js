@@ -6,20 +6,31 @@ import { fetchSessions } from '../actions/sessions';
 
 import Campaign from '../components/Campaign';
 
-function mapStateToProps(state) {
+export function activeCampaign(state) {
   var campaign;
-  if(state.campaigns.list && state.campaigns.index && state.campaigns.active) {
-    campaign = state.campaigns.list[state.campaigns.index[state.campaigns.active]];
+  if(state.campaigns.list && state.campaigns.index && state.campaigns.activeSlug) {
+    campaign = state.campaigns.list[state.campaigns.index[state.campaigns.activeSlug]];
   }
+  return campaign;
+}
+
+export function campaignState(state) {
+  return {
+    campaignSlug: state.campaigns.activeSlug,
+    campaign: activeCampaign(state),
+    campaignPath: 'campaigns/' + state.campaigns.activeSlug
+  }
+}
+
+function mapStateToProps(state) {
+  const campaignStateFields = campaignState(state);
 
   return {
-    campaignSlug: state.campaigns.active,
-    campaign: campaign,
+    ...campaignStateFields,
     sessions: state.sessions.list,
-    sessions_index: state.sessions.index,
+    sessionsIndex: state.sessions.index,
     pages: state.campaignPages.list,
-    pages_index: state.campaignPages.index,
-    campaign_path: 'campaigns/' + state.campaigns.active
+    pagesIndex: state.campaignPages.index
   }
 }
 

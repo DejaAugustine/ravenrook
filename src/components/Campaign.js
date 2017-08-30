@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import CampaignDetail from './CampaignDetail';
+import CampaignDetail from '../containers/CampaignDetail';
 import CampaignPage from './CampaignPage';
 import SessionDetail from './SessionDetail';
-import Character from './Character';
+import Character from '../containers/Character';
 
 import './Campaign.css';
 
@@ -41,8 +41,8 @@ class Campaign extends Component {
 
     return (
       <Switch>
-        <Route path={this.props.match.url} exact render={props => <CampaignDetail campaign={campaign} sessions={sessions} pages={pages} {...props} />} />
-        <Route path={this.props.match.url + '/characters/:characterSlug'} render={props => <Character campaign={campaign} {...props} />} />
+        <Route path={this.props.match.url} exact component={CampaignDetail} />
+        <Route path={this.props.match.url + '/characters/:characterSlug'} component={Character} />} />
         <Route path={this.props.match.url + '/campaign/:pageSlug'} render={props => <CampaignPage campaign={campaign} pages={pages}  pageIndex={pindex} {...props} />} />
         <Route path={this.props.match.url + '/:sessionSlug'} render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={path} {...props} />} />
       </Switch>

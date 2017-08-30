@@ -1,61 +1,37 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import parseWPResponse from '../utils/';
-import Party from './Party.js';
+import Party from '../containers/Party.js';
 
 class Character extends Component {
-  fetchCharacter(props) {
-    if(props.campaign) {
-      this.setState({
-        campaign: props.campaign
-      });
-    }
-
-    if(props.match.params.characterSlug) {
-      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/character?slug=" + props.match.params.characterSlug)
-        .then(res => res.json())
-        .then(res => parseWPResponse(res))
-        .then(res => {
-          const character = res[0];
-
-          if(character) {
-            this.setState({
-              character: character,
-              characterSlug: character.slug
-            });
-          }
-        });
-    }
-  }
-
   componentWillMount() {
-    if(!this.state) {
-      this.setState({
-        character: { title: {}, content: {}, acf: {} }
-      });
-    }
-
-    this.fetchCharacter(this.props);
+    //this.props.fetchCharacters();
+    this.props.selectCharacter(this.props.match.params.characterSlug);
   }
 
   componentWillReceiveProps(newProps) {
-    if(this.state.characterSlug && this.state.characterSlug === newProps.characterSlug) return;
+    console.log("WRP", this.props, newProps);
+    if(!this.props.character || this.props.character.slug !== newProps.match.params.characterSlug) {
 
-    this.fetchCharacter(newProps);
+      console.log(newProps.match.params.characterSlug);
+      this.props.selectCharacter(newProps.match.params.characterSlug);
+    }
   }
 
   render() {
-    const character = this.state.character;
-    const campaignName = this.state.campaign ? this.state.campaign.name : '';
-    const campaignPath = this.state.campaign ? this.state.campaign.path : '';
+    const character = this.props.character;
+    const campaignName = this.props.campaign ? this.props.campaign.name : '';
+    const campaignPath = this.props.campaignPath;
     var characterClasses = {};
+
+    if(!character) return(null);
+
     characterClasses[character.id] = "present";
 
     return (
       <main>
         <header>
           <h3><Link to={campaignPath}>{campaignName}</Link></h3>
-          <Party campaign={this.state.campaign} classes={characterClasses} />
+          <Party classes={characterClasses} />
           <h2>{character.title.rendered}</h2>
           <h3>{character.acf.race_class}</h3>
         </header>

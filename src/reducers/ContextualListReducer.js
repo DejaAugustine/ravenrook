@@ -18,7 +18,7 @@ const ContextualListReducer = (contextId) => {
 
       case SELECT_ITEM:
         return {...state,
-          active: action.payload.slug
+          activeSlug: action.payload.slug
         };
 
       default:
