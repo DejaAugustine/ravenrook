@@ -11,6 +11,6 @@ export const selectCampaign = (campaignSlug) => {
 }
 
 export const fetchCampaignPages = (campaignId) => {
-  const endpoint = "https://api.therookandtheraven.com/wp-json/wp/v2/campaign_pages?categories=" + campaignId + "&filter[orderby]=date&order=desc";
+  const endpoint = campaignId && "https://api.therookandtheraven.com/wp-json/wp/v2/campaign_pages?categories=" + campaignId + "&filter[orderby]=date&order=desc";
   return fetchList(endpoint, CONTEXT.campaignPages);
 }

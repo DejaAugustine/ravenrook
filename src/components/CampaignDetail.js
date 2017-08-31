@@ -5,18 +5,8 @@ import Party from '../containers/Party';
 import './CampaignDetail.css';
 
 class CampaignDetail extends Component {
-  componentWillMount() {
-    this.props.selectCampaign(this.props.match.params.campaignSlug);
-  }
-
   componentWillReceiveProps(newProps) {
     console.log("Detail:WRP", this.props, newProps);
-
-    if(newProps.campaignSlug) {
-      if(this.props.campaignSlug !== newProps.match.params.campaignSlug) {
-        this.props.selectCampaign(newProps.match.params.campaignSlug);
-      }
-    }
 
     if(newProps.campaign && newProps.campaign.id && (!this.props.campaign || this.props.campaign.id !== newProps.campaign.id)) {
       console.log("New Campaign, fetching pages/sessions!", newProps.campaign, this.props.campaign);
@@ -76,7 +66,7 @@ class CampaignDetail extends Component {
         <header>
           <h2>{name}</h2>
           <h3>Campaign Overview</h3>
-          <Party campaignPath={this.props.match.url} />
+          <Party />
         </header>
 
         <p className="description" dangerouslySetInnerHTML={{__html: description}} />

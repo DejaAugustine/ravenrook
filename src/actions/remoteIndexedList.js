@@ -13,14 +13,16 @@ const storeList = (list, context) => {
 
 export function fetchList(endpoint, context) {
   return dispatch => {
-    fetchData(endpoint, list => {
-      var indexedList = {};
-      for(var i=0;i<list.length;i++) {
-        const item = list[i];
-        indexedList[item.slug] = item;
-      }
-      dispatch(storeList(indexedList, context));
-    });
+    if(endpoint && context) {
+      fetchData(endpoint, list => {
+        var indexedList = {};
+        for(var i=0;i<list.length;i++) {
+          const item = list[i];
+          indexedList[item.slug] = item;
+        }
+        dispatch(storeList(indexedList, context));
+      });
+    }
   };
 }
 
@@ -36,6 +38,8 @@ export const selectItemByKey = (key, context) => {
 
 export function selectItem(key, context) {
   return dispatch => {
-    dispatch(selectItemByKey(key, context))
+    if(key && context) {
+      dispatch(selectItemByKey(key, context));
+    }
   };
 }

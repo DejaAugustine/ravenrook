@@ -1,5 +1,13 @@
 
-const decodeHtmlEntities = function(str) {
+export function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
+function decodeHtmlEntities(str) {
   return str.replace(/&#(\d+);/g, function(match, dec) {
     return String.fromCharCode(dec);
   });

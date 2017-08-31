@@ -6,30 +6,31 @@ import CampaignPage from './CampaignPage';
 import SessionDetail from './SessionDetail';
 import Character from '../containers/Character';
 
-import './Campaign.css';
-
 class Campaign extends Component {
-  constructor(props) {
-    console.log("C:ctor", props);
-    super(props);
-    props.selectCampaign(props.match.params.campaignSlug);
+  componentWillMount() {
+    console.log("Campaign:WillMount", this.props);
+    this.props.selectCampaign(this.props.match.params.campaignSlug);
+  }
+
+  componentWillReceiveProps(newProps) {
+    console.log("Campaign:WRP", this.props, newProps);
+
+    if(newProps.campaignSlug) {
+      if(this.props.campaignSlug !== newProps.match.params.campaignSlug) {
+        this.props.selectCampaign(newProps.match.params.campaignSlug);
+      }
+    }
   }
 
   render() {
     console.log("Campaign:Render", this.props);
-    const campaign = this.props.campaign;
-    const sessions = this.props.sessions;
-    const pages = this.props.pages;
-    const index = this.props.sessions_index;
-    const pindex = this.props.pages_index;
-    const path = this.props.campaign_path;
 
     return (
       <Switch>
-        <Route path='/campaigns/:campaignSlug' component={CampaignDetail} />
-        <Route path='/campaigns/:campaignSlug/characters/:characterSlug' component={Character} />} />
-        <Route path='/campaigns/:campaignSlug/:pageSlug' render={props => <CampaignPage campaign={campaign} pages={pages}  pageIndex={pindex} {...props} />} />
-        <Route path='/campaigns/:campaignSlug/sessions/:sessionSlug' render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={path} {...props} />} />
+        <Route path={this.props.match.url} exact component={CampaignDetail} />
+        <Route path={this.props.match.url + '/characters/:characterSlug'} component={Character} />} />
+        <Route path={this.props.match.url + '/sessions/:sessionSlug'} component={SessionDetail} />
+        <Route path={this.props.match.url + '/:pageSlug'} component={CampaignPage} />
       </Switch>
     );
   }

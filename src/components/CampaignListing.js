@@ -3,18 +3,15 @@ import { Route, NavLink, Switch } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 import SiteNav from './SiteNav';
-import CampaignDetail from '../containers/CampaignDetail';
-import CampaignPage from './CampaignPage';
-import SessionDetail from './SessionDetail';
-import Character from '../containers/Character';
+import Campaign from '../containers/Campaign';
 
 import './CampaignListing.css';
 
 class CampaignListing extends Component {
 
-  constructor(props) {
-    super(props);
-    props.fetchCampaigns();
+  componentWillMount() {
+    console.log("CL:WM", this.props);
+    this.props.fetchCampaigns();
   }
 
   renderCampaignList() {
@@ -44,12 +41,7 @@ class CampaignListing extends Component {
             </ul>
           </nav>
 
-          <Switch>
-            <Route path={this.props.match.url + '/:campaignSlug'} exact component={CampaignDetail} />
-            <Route path={this.props.match.url + '/:campaignSlug/characters/:characterSlug'} component={Character} />} />
-            <Route path={this.props.match.url + '/:campaignSlug/:pageSlug'} component={CampaignPage} />
-            <Route path={this.props.match.url + '/:campaignSlug/sessions/:sessionSlug'} component={SessionDetail} />
-          </Switch>
+          <Route path={this.props.match.url + '/:campaignSlug'} component={Campaign} />
         </section>
       </div>
     );
