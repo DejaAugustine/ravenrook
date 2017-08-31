@@ -2,7 +2,6 @@ import { STORE_LIST, SELECT_ITEM } from './types';
 import { fetchData } from '../utils';
 
 const storeList = (list, context) => {
-  console.log("storeList", context);
   return {
     type: STORE_LIST,
     context: context,
@@ -13,8 +12,6 @@ const storeList = (list, context) => {
 };
 
 export function fetchList(endpoint, context) {
-  console.log("fetchList", context);
-
   return dispatch => {
     fetchData(endpoint, list => {
       var indexedList = {};
@@ -27,20 +24,18 @@ export function fetchList(endpoint, context) {
   };
 }
 
-export const selectItemBySlug = (slug, context) => {
-  console.log("selectItemBySlug", slug, context);
+export const selectItemByKey = (key, context) => {
   return {
     type: SELECT_ITEM,
     context: context,
     payload: {
-      slug: slug
+      key: key
     }
   };
 };
 
-export function selectItem(slug, context) {
-  console.log("selectItem", slug, context);
+export function selectItem(key, context) {
   return dispatch => {
-    dispatch(selectItemBySlug(slug, context))
+    dispatch(selectItemByKey(key, context))
   };
 }

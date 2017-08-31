@@ -1,23 +1,21 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { selectCharacter } from '../actions/characters';
+import { fetchCharacters, selectCharacter } from '../actions/characters';
 import Character from '../components/Character';
 
 function mapStateToProps(state) {
-  var character;
-  if(state.characters.index) {
-    character = state.characters.list[state.characters.index[state.characters.activeSlug]];
-  }
-
   return {
-    characterSlug: state.characters.activeSlug,
-    character: character
+    campaign: state.campaigns.active,
+    characters: state.characters.list,
+    characterSlug: state.characters.activeKey,
+    character: state.characters.active
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
+    fetchCharacters: fetchCharacters,
     selectCharacter: selectCharacter
   }, dispatch);
 }

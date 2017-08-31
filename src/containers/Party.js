@@ -7,6 +7,7 @@ import Party from '../components/Party';
 
 function mapStateToProps(state) {
   return {
+    campaign: state.campaigns.active,
     characters: state.characters.list,
     session: state.sessions.active
   }

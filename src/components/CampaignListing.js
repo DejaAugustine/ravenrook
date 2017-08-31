@@ -13,7 +13,6 @@ import './CampaignListing.css';
 class CampaignListing extends Component {
 
   constructor(props) {
-    console.log("CL:WM");
     super(props);
     props.fetchCampaigns();
   }
@@ -38,7 +37,7 @@ class CampaignListing extends Component {
           <link rel="canonical" href="https://therookandtheraven.com/campaigns/" />
         </Helmet>
         <SiteNav />
-        <section className="campagins">
+        <section className="campaigns">
           <nav className="campaign-listing">
             <ul className="menu">
               {this.renderCampaignList()}
@@ -46,7 +45,7 @@ class CampaignListing extends Component {
           </nav>
 
           <Switch>
-            <Route path={this.props.match.url + '/:campaignSlug'} component={CampaignDetail} />
+            <Route path={this.props.match.url + '/:campaignSlug'} exact component={CampaignDetail} />
             <Route path={this.props.match.url + '/:campaignSlug/characters/:characterSlug'} component={Character} />} />
             <Route path={this.props.match.url + '/:campaignSlug/:pageSlug'} component={CampaignPage} />
             <Route path={this.props.match.url + '/:campaignSlug/sessions/:sessionSlug'} component={SessionDetail} />

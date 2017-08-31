@@ -7,9 +7,8 @@ import { fetchSessions } from '../actions/sessions';
 import CampaignDetail from '../components/CampaignDetail';
 
 function mapStateToProps(state) {
-  console.log("CDmSTP", state);
   return {
-    campaignSlug: state.campaigns.activeSlug,
+    campaignSlug: state.campaigns.activeKey,
     campaign: state.campaigns.active,
     campaigns: state.campaigns.list,
     sessions: state.sessions.list,
@@ -21,7 +20,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchCampaigns: fetchCampaigns,
     fetchSessions: fetchSessions,
-    fetchPages: fetchCampaignPages,
+    fetchCampaignPages: fetchCampaignPages,
     selectCampaign: selectCampaign
   }, dispatch);
 }

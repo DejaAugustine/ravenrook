@@ -23,11 +23,11 @@ class Party extends Component {
 
   render() {
     console.log("Party", this.props);
-    const characterList = this.props.characters ? this.props.characters : [];
+    const characterList = this.props.characters || {};
     const characterClasses = undefined; //this.props.sessions.classes || undefined;
     const path = this.props.campaignPath;
 
-    const partyList = characterList.map(function(character, index){
+    const partyList = Object.values(characterList).map(function(character, index){
       var classes = ["menu-item", "character"];
 
       if(characterClasses) {

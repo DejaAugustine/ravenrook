@@ -1,24 +1,40 @@
 import { STORE_LIST, SELECT_ITEM } from '../actions/types';
 
+function selectItem(list, key) {
+  var active = {};
+
+  if(list) {
+    active = list[key];
+  }
+
+  console.log("Reducer:selectItem", key, active, list);
+  return {
+    list: list,
+    activeKey: key,
+    active: active
+  };
+}
+
 const ContextualListReducer = (state = {}, action) => {
   const {context} = action;
+  const prevContext = state[context];
 
   switch(action.type) {
     case STORE_LIST:
-      return {...state,
+      return {
+        ...state,
         [context]: {
-          list: action.payload.list
+          ...prevContext,
+          ...selectItem(action.payload.list, prevContext.activeKey)
         }
       };
 
     case SELECT_ITEM:
-      const slug = action.payload.slug;
-      var active = state[context] && state[context].list ?
-        state[context].list[slug] : undefined;
-      return {...state,
+      return {
+        ...state,
         [context]: {
-          active: active,
-          activeSlug: active ? slug : undefined
+          ...prevContext,
+          ...selectItem(state[context].list, action.payload.key)
         }
       };
 

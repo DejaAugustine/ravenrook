@@ -4,7 +4,10 @@ import Party from '../containers/Party.js';
 
 class Character extends Component {
   componentWillMount() {
-    //this.props.fetchCharacters();
+    if(!this.props.characters && this.props.campaign) {
+      console.log("Character:WM:fetchCharacters", this.props.campaign.id);
+      this.props.fetchCharacters(this.props.campaign.id);
+    }
     this.props.selectCharacter(this.props.match.params.characterSlug);
   }
 
@@ -15,22 +18,28 @@ class Character extends Component {
       console.log("WRP-Nest", newProps.match.params.characterSlug);
       this.props.selectCharacter(newProps.match.params.characterSlug);
     }
+
+    if(!this.props.characters && this.props.campaign) {
+      console.log("Character:WRP:fetchCharacters", this.props.campaign.id);
+      this.props.fetchCharacters(this.props.campaign.id);
+    }
   }
 
   render() {
-    const character = this.props.character;
+    console.log("Character:render", this.props);
+    const character = this.props.character || {};
     const campaignName = this.props.campaign ? this.props.campaign.name : '';
     const campaignPath = this.props.campaignPath;
     var characterClasses = {};
 
-    if(!character) return(null);
+    if(!character.id) return(null);
 
     characterClasses[character.id] = "present";
 
     return (
       <main>
         <header>
-          <h3><Link to={campaignPath}>{campaignName}</Link></h3>
+          <h3>{campaignName}</h3>
           <Party classes={characterClasses} />
           <h2>{character.title.rendered}</h2>
           <h3>{character.acf.race_class}</h3>

@@ -5,28 +5,42 @@ import Party from '../containers/Party';
 import './CampaignDetail.css';
 
 class CampaignDetail extends Component {
-  componentDidMount() {
-    console.log("Detail:DM", this.props);
-    if(this.props.campaigns && this.props.match.params.campaignSlug)
-      this.props.selectCampaign(this.props.match.params.campaignSlug);
+  componentWillMount() {
+    this.props.selectCampaign(this.props.match.params.campaignSlug);
   }
 
   componentWillReceiveProps(newProps) {
-    console.log("Detail:WRP", newProps, this.props);
-    console.log("DWRP", !this.props.campaignSlug, "||", this.props.campaignSlug !== newProps.match.params.campaignSlug);
-    if(!this.props.campaignSlug || this.props.campaignSlug !== newProps.match.params.campaignSlug) {
-      this.props.selectCampaign(newProps.match.params.campaignSlug);
+    console.log("Detail:WRP", this.props, newProps);
+
+    if(newProps.campaignSlug) {
+      if(this.props.campaignSlug !== newProps.match.params.campaignSlug) {
+        this.props.selectCampaign(newProps.match.params.campaignSlug);
+      }
     }
+
+    if(newProps.campaign && newProps.campaign.id && (!this.props.campaign || this.props.campaign.id !== newProps.campaign.id)) {
+      console.log("New Campaign, fetching pages/sessions!", newProps.campaign, this.props.campaign);
+      this.props.fetchCampaignPages(newProps.campaign.id);
+      this.props.fetchSessions(newProps.campaign.id);
+    }
+
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("Detail:sCU", nextProps.campaign !== undefined);
+    return nextProps.campaign !== undefined;
   }
 
   render() {
+    if(!this.props.campaign) { return(null); }
+
     console.log("CampaignDetail", this.props);
     const campaign = this.props.campaign;
     const path = this.props.match.url;
-    const pages = this.props.pages || [];
-    const sessions = this.props.sessions || [];
+    const pages = this.props.pages || {};
+    const sessions = this.props.sessions || {};
 
-    const campaignPages = pages.map((page, index) => {
+    const campaignPages = Object.values(pages).map((page, index) => {
       return (
         <li key={index} className="menu-item">
           <Link to={path+ '/campaign/' + page.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}>
@@ -38,7 +52,7 @@ class CampaignDetail extends Component {
       );
     });
 
-    const sessionList = sessions.map((session, index) => {
+    const sessionList = Object.values(sessions).map((session, index) => {
       return (
         <li key={index} className="menu-item">
           <Link to={path + '/' + session.slug} style={{backgroundImage: 'url(' + session.acf.cover_art + ')'}}>
@@ -62,7 +76,7 @@ class CampaignDetail extends Component {
         <header>
           <h2>{name}</h2>
           <h3>Campaign Overview</h3>
-          <Party />
+          <Party campaignPath={this.props.match.url} />
         </header>
 
         <p className="description" dangerouslySetInnerHTML={{__html: description}} />
