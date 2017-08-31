@@ -10,9 +10,9 @@ class Character extends Component {
 
   componentWillReceiveProps(newProps) {
     console.log("WRP", this.props, newProps);
-    if(!this.props.character || this.props.character.slug !== newProps.match.params.characterSlug) {
+    if(newProps.characterSlug && this.props.characterSlug !== newProps.match.params.characterSlug) {
 
-      console.log(newProps.match.params.characterSlug);
+      console.log("WRP-Nest", newProps.match.params.characterSlug);
       this.props.selectCharacter(newProps.match.params.characterSlug);
     }
   }

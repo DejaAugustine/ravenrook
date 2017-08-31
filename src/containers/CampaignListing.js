@@ -5,9 +5,9 @@ import { fetchCampaigns } from '../actions/campaigns';
 import CampaignListing from '../components/CampaignListing';
 
 function mapStateToProps(state) {
+  console.log("CLmSTP", state);
   return {
-    campaigns: state.campaigns.list || [],
-    campaignIndex: state.campaigns.index || []
+    campaigns: state.campaigns.list || {}
   }
 }
 

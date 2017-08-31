@@ -3,19 +3,25 @@ import { Route, NavLink, Switch } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 import SiteNav from './SiteNav';
-import Campaign from '../containers/Campaign';
+import CampaignDetail from '../containers/CampaignDetail';
+import CampaignPage from './CampaignPage';
+import SessionDetail from './SessionDetail';
+import Character from '../containers/Character';
 
 import './CampaignListing.css';
 
 class CampaignListing extends Component {
 
-  componentWillMount() {
-    this.props.fetchCampaigns();
+  constructor(props) {
+    console.log("CL:WM");
+    super(props);
+    props.fetchCampaigns();
   }
 
   renderCampaignList() {
     if(this.props.campaigns) {
-      return this.props.campaigns.map((campaign, index) => {
+      const campaigns = Object.values(this.props.campaigns);
+      return campaigns.map((campaign, index) => {
         return <li key={index} className="menu-item"><NavLink to={'/campaigns/' + campaign.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}><span>{campaign.name}</span></NavLink></li>
       });
     } else {
@@ -40,7 +46,10 @@ class CampaignListing extends Component {
           </nav>
 
           <Switch>
-            <Route path={this.props.match.url + '/:campaignSlug'} component={Campaign} />
+            <Route path={this.props.match.url + '/:campaignSlug'} component={CampaignDetail} />
+            <Route path={this.props.match.url + '/:campaignSlug/characters/:characterSlug'} component={Character} />} />
+            <Route path={this.props.match.url + '/:campaignSlug/:pageSlug'} component={CampaignPage} />
+            <Route path={this.props.match.url + '/:campaignSlug/sessions/:sessionSlug'} component={SessionDetail} />
           </Switch>
         </section>
       </div>

@@ -1,29 +1,29 @@
 import { STORE_LIST, SELECT_ITEM } from '../actions/types';
 
-const defaultState = {};
+const ContextualListReducer = (state = {}, action) => {
+  const {context} = action;
 
-const ContextualListReducer = (contextId) => {
-  return (state = defaultState, action) => {
+  switch(action.type) {
+    case STORE_LIST:
+      return {...state,
+        [context]: {
+          list: action.payload.list
+        }
+      };
 
-    const {context} = action;
-    if(contextId !== context)
+    case SELECT_ITEM:
+      const slug = action.payload.slug;
+      var active = state[context] && state[context].list ?
+        state[context].list[slug] : undefined;
+      return {...state,
+        [context]: {
+          active: active,
+          activeSlug: active ? slug : undefined
+        }
+      };
+
+    default:
       return state;
-
-    switch(action.type) {
-      case STORE_LIST:
-        return {...state,
-          list: action.payload.list,
-          index: action.payload.index
-        };
-
-      case SELECT_ITEM:
-        return {...state,
-          activeSlug: action.payload.slug
-        };
-
-      default:
-        return state;
-    }
   }
 };
 

@@ -1,18 +1,29 @@
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { fetchCampaigns, fetchCampaignPages, selectCampaign } from '../actions/campaigns';
+import { fetchSessions } from '../actions/sessions';
+
 import CampaignDetail from '../components/CampaignDetail';
 
-import { campaignState } from './Campaign'
-
 function mapStateToProps(state) {
-  const campaignStateFields = campaignState(state);
-
+  console.log("CDmSTP", state);
   return {
-    ...campaignStateFields,
+    campaignSlug: state.campaigns.activeSlug,
+    campaign: state.campaigns.active,
+    campaigns: state.campaigns.list,
     sessions: state.sessions.list,
-    sessionsIndex: state.sessions.index,
-    pages: state.campaignPages.list,
-    pagesIndex: state.campaignPages.index
+    pages: state.campaignPages.list
   }
 }
 
-export default connect(mapStateToProps, null)(CampaignDetail);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    fetchCampaigns: fetchCampaigns,
+    fetchSessions: fetchSessions,
+    fetchPages: fetchCampaignPages,
+    selectCampaign: selectCampaign
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CampaignDetail);

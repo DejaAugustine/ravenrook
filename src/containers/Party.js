@@ -5,16 +5,10 @@ import { fetchCharacters } from '../actions/characters';
 
 import Party from '../components/Party';
 
-import { campaignState } from './Campaign'
-
 function mapStateToProps(state) {
-  const campaignStateFields = campaignState(state);
-
   return {
-    ...campaignStateFields,
     characters: state.characters.list,
-    sessions: state.sessions.list,
-    sessionsIndex: state.sessions.index
+    session: state.sessions.active
   }
 }
 

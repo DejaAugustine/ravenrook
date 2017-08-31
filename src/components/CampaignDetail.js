@@ -5,7 +5,22 @@ import Party from '../containers/Party';
 import './CampaignDetail.css';
 
 class CampaignDetail extends Component {
+  componentDidMount() {
+    console.log("Detail:DM", this.props);
+    if(this.props.campaigns && this.props.match.params.campaignSlug)
+      this.props.selectCampaign(this.props.match.params.campaignSlug);
+  }
+
+  componentWillReceiveProps(newProps) {
+    console.log("Detail:WRP", newProps, this.props);
+    console.log("DWRP", !this.props.campaignSlug, "||", this.props.campaignSlug !== newProps.match.params.campaignSlug);
+    if(!this.props.campaignSlug || this.props.campaignSlug !== newProps.match.params.campaignSlug) {
+      this.props.selectCampaign(newProps.match.params.campaignSlug);
+    }
+  }
+
   render() {
+    console.log("CampaignDetail", this.props);
     const campaign = this.props.campaign;
     const path = this.props.match.url;
     const pages = this.props.pages || [];

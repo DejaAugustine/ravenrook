@@ -9,29 +9,14 @@ import Character from '../containers/Character';
 import './Campaign.css';
 
 class Campaign extends Component {
-
-  componentWillMount() {
-    if(this.props.campaign)
-      this.props.fetchPages(this.props.campaign.id);
-
-    this.props.selectCampaign(this.props.match.params.campaignSlug);
-  }
-
-  componentWillReceiveProps(newProps) {
-
-    if(newProps.match.params.campaignSlug && newProps.match.params.campaignSlug !== this.props.match.params.campaignSlug) {
-      newProps.selectCampaign(newProps.match.params.campaignSlug);
-    }
-
-    if(newProps.campaign) {
-      if(!this.props.campaign || newProps.campaign.id !== this.props.campaign.id) {
-        newProps.fetchPages(newProps.campaign.id);
-        newProps.fetchSessions(newProps.campaign.id);
-      }
-    }
+  constructor(props) {
+    console.log("C:ctor", props);
+    super(props);
+    props.selectCampaign(props.match.params.campaignSlug);
   }
 
   render() {
+    console.log("Campaign:Render", this.props);
     const campaign = this.props.campaign;
     const sessions = this.props.sessions;
     const pages = this.props.pages;
@@ -41,10 +26,10 @@ class Campaign extends Component {
 
     return (
       <Switch>
-        <Route path={this.props.match.url} exact component={CampaignDetail} />
-        <Route path={this.props.match.url + '/characters/:characterSlug'} component={Character} />} />
-        <Route path={this.props.match.url + '/campaign/:pageSlug'} render={props => <CampaignPage campaign={campaign} pages={pages}  pageIndex={pindex} {...props} />} />
-        <Route path={this.props.match.url + '/:sessionSlug'} render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={path} {...props} />} />
+        <Route path='/campaigns/:campaignSlug' component={CampaignDetail} />
+        <Route path='/campaigns/:campaignSlug/characters/:characterSlug' component={Character} />} />
+        <Route path='/campaigns/:campaignSlug/:pageSlug' render={props => <CampaignPage campaign={campaign} pages={pages}  pageIndex={pindex} {...props} />} />
+        <Route path='/campaigns/:campaignSlug/sessions/:sessionSlug' render={props => <SessionDetail campaign={campaign} sessions={sessions} sessionIndex={index} campaignPath={path} {...props} />} />
       </Switch>
     );
   }
