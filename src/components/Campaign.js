@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import CampaignDetail from '../containers/CampaignDetail';
-import CampaignPage from './CampaignPage';
+import CampaignPage from '../containers/CampaignPage';
 import SessionDetail from './SessionDetail';
 import Character from '../containers/Character';
 
@@ -15,10 +15,8 @@ class Campaign extends Component {
   componentWillReceiveProps(newProps) {
     console.log("Campaign:WRP", this.props, newProps);
 
-    if(newProps.campaignSlug) {
-      if(this.props.campaignSlug !== newProps.match.params.campaignSlug) {
-        this.props.selectCampaign(newProps.match.params.campaignSlug);
-      }
+    if(newProps.campaignSlug && this.props.campaignSlug !== newProps.match.params.campaignSlug) {
+      this.props.selectCampaign(newProps.match.params.campaignSlug);
     }
   }
 

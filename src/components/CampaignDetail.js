@@ -33,7 +33,7 @@ class CampaignDetail extends Component {
     const campaignPages = Object.values(pages).map((page, index) => {
       return (
         <li key={index} className="menu-item">
-          <Link to={path+ '/campaign/' + page.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}>
+          <Link to={path+ '/' + page.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}>
             <span>
               {page.title.rendered}
             </span>
@@ -45,7 +45,7 @@ class CampaignDetail extends Component {
     const sessionList = Object.values(sessions).map((session, index) => {
       return (
         <li key={index} className="menu-item">
-          <Link to={path + '/' + session.slug} style={{backgroundImage: 'url(' + session.acf.cover_art + ')'}}>
+          <Link to={path + '/sessions/' + session.slug} style={{backgroundImage: 'url(' + session.acf.cover_art + ')'}}>
             <span>
               Session {session.acf.session_number}<br />
               {session.title.rendered}
@@ -66,7 +66,7 @@ class CampaignDetail extends Component {
         <header>
           <h2>{name}</h2>
           <h3>Campaign Overview</h3>
-          <Party />
+          <Party path={this.props.match} />
         </header>
 
         <p className="description" dangerouslySetInnerHTML={{__html: description}} />

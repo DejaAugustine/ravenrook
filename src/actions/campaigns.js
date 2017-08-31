@@ -14,3 +14,7 @@ export const fetchCampaignPages = (campaignId) => {
   const endpoint = campaignId && "https://api.therookandtheraven.com/wp-json/wp/v2/campaign_pages?categories=" + campaignId + "&filter[orderby]=date&order=desc";
   return fetchList(endpoint, CONTEXT.campaignPages);
 }
+
+export const selectCampaignPage = (campaignPageSlug) => {
+  return selectItem(campaignPageSlug, CONTEXT.campaignPages);
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class CampaignPage extends Component {
-  parseState(props) {
+  /*parseState(props) {
     this.setState({
       path: props.match.path,
       campaign: props.campaign,
@@ -20,16 +20,15 @@ class CampaignPage extends Component {
     if(!newProps.campaign) return;
 
     this.parseState(newProps);
-  }
+  }*/
 
   render() {
+    console.log("CampaignPage:render", this.props);
+    const campaign = this.props.campaign;
+    const name = campaign.name || '';
+    const path = campaign.path || '/';
 
-    const campaign = this.state.campaign;
-    const name = campaign ? campaign.name : '';
-    const path = campaign ? campaign.path : '';
-
-    const pageId = this.state.index[this.state.pageSlug];
-    const page = pageId !== undefined ? this.state.pages[pageId] : {};
+    const page = this.props.page || {};
     const title = page.title ? page.title.rendered : '';
     const body = page.content ? page.content.rendered : '';
 
