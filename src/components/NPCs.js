@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import parseWPResponse from '../utils';
 
 import './NPCs.css';
 
 class NPCs extends Component {
 
   render() {
-    console.log("NPCs:render", this.props);
     const characterList = this.props.characters || {};
     const session = this.props.session;
 

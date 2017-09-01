@@ -7,7 +7,6 @@ function selectItem(list, key) {
     active = list[key];
   }
 
-  console.log("Reducer:selectItem", key, active, list);
   return {
     list: list,
     activeKey: key,
@@ -18,8 +17,6 @@ function selectItem(list, key) {
 const ContextualListReducer = (state = {}, action) => {
   const {context} = action;
   const prevContext = state[context];
-
-  console.log("Reducer", context, action, state);
 
   switch(action.type) {
     case STORE_LIST:

@@ -6,10 +6,7 @@ import './Party.css';
 class Party extends Component {
 
   render() {
-    console.log("Party", this.props);
-    const campaign = this.props.campaign;
     const characterList = this.props.characters || {};
-    const session = this.props.session || {};
     const characterClasses = this.props.classes || undefined;
     const currentPath = this.props.path.path.replace(/\/session\/:sessionSlug/, '');
     const lastIndex = currentPath.lastIndexOf(':characterSlug')

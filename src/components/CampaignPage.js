@@ -2,26 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class CampaignPage extends Component {
-  /*parseState(props) {
-    this.setState({
-      path: props.match.path,
-      campaign: props.campaign,
-      index: props.pageIndex || {},
-      pages: props.pages || [],
-      pageSlug: props.match.params.pageSlug
-    });
-  }
-
-  componentWillMount() {
-    this.parseState(this.props);
-  }
-
-  componentWillReceiveProps(newProps) {
-    if(!newProps.campaign) return;
-
-    this.parseState(newProps);
-  }*/
-
   componentWillMount() {
     this.props.selectCampaignPage(this.props.match.params.pageSlug);
   }
@@ -33,7 +13,6 @@ class CampaignPage extends Component {
   }
 
   render() {
-    console.log("CampaignPage:render", this.props);
     const campaign = this.props.campaign;
     const name = campaign.name || '';
 

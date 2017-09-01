@@ -5,20 +5,9 @@ import Party from '../containers/Party';
 import './CampaignDetail.css';
 
 class CampaignDetail extends Component {
-  componentWillReceiveProps(newProps) {
-    console.log("Detail:WRP", this.props, newProps);
-
-    if(newProps.campaign.id && (!this.props.campaign || this.props.campaign.id !== newProps.campaign.id)) {
-      console.log("New Campaign, fetching pages/sessions!", newProps.campaign, this.props.campaign);
-      this.props.fetchCampaignPages(newProps.campaign.id);
-      this.props.fetchSessions(newProps.campaign.id);
-    }
-  }
-
   render() {
     if(!this.props.campaign) { return(null); }
 
-    console.log("CampaignDetail", this.props);
     const campaign = this.props.campaign;
     const path = this.props.match.url;
     const pages = this.props.pages || {};

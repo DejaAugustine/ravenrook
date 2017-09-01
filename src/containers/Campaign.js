@@ -8,7 +8,6 @@ import { fetchCharacters } from '../actions/characters';
 import Campaign from '../components/Campaign';
 
 function mapStateToProps(state) {
-  console.log("CmSTP", state);
   return {
     campaignSlug: state.campaigns.activeKey,
     campaign: state.campaigns.active

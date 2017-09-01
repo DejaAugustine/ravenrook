@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 import SiteNav from './SiteNav';
@@ -10,7 +10,6 @@ import './CampaignListing.css';
 class CampaignListing extends Component {
 
   componentWillMount() {
-    console.log("CL:WM", this.props);
     this.props.fetchCampaigns();
   }
 

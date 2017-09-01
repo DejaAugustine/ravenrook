@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { selectCampaign, selectCampaignPage } from '../actions/campaigns';
+import { selectCampaignPage } from '../actions/campaigns';
 
 import CampaignPage from '../components/CampaignPage';
 

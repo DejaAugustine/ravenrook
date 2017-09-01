@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { isEmpty } from '../utils';
 import Party from '../containers/Party.js';
 
 class Character extends Component {
@@ -9,16 +7,12 @@ class Character extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log("WRP", this.props, newProps);
     if(newProps.characterSlug && this.props.characterSlug !== newProps.match.params.characterSlug) {
-
-      console.log("WRP-Nest", newProps.match.params.characterSlug);
       this.props.selectCharacter(newProps.match.params.characterSlug);
     }
   }
 
   render() {
-    console.log("Character:render", this.props);
     const character = this.props.character || {};
     const campaignName = this.props.campaign ? this.props.campaign.name : '';
     var characterClasses = {};
@@ -26,7 +20,7 @@ class Character extends Component {
     if(!character.id) return(null);
 
     characterClasses[character.id] = "present";
-    // path.substr(0, path.lastIndexOf(':characterSlug'));
+
     return (
       <main>
         <header>
