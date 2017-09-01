@@ -19,6 +19,8 @@ const ContextualListReducer = (state = {}, action) => {
   const {context} = action;
   const prevContext = state[context];
 
+  console.log("Reducer", context, action, state);
+
   switch(action.type) {
     case STORE_LIST:
       return {

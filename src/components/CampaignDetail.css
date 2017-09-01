@@ -100,16 +100,12 @@ main .menu a {
   font-size: 1em;
   left: 0;
   position: absolute;
-  width: 100%;
-  padding-left: 0.5em;
+  width: 90%;
+  padding: 5%;
 }
 
 .campaign-pages .menu-item {
   min-width: 200px;
   max-width: 20%;
   height: 10em;
-}
-
-.campaign-pages span {
-  padding: 0.5em;
 }

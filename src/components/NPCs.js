@@ -5,74 +5,22 @@ import './NPCs.css';
 
 class NPCs extends Component {
 
-  parseCampaign(props) {
-    this.setState({
-      campaign: props.campaign,
-      path: props.path
-    });
-
-    if(props.campaign) {
-      fetch("https://api.therookandtheraven.com/wp-json/wp/v2/character?per_page=100&filter[orderby]=title&order=asc&categories_exclude=10&categories=" + props.campaign.id)
-        .then(res => res.json())
-        .then(res => parseWPResponse(res))
-        .then(res => {
-          this.setState({
-            characters: res
-          });
-
-          var index = this.state.index || {};
-
-          for(var i=0;i<res.length;i++) {
-            var character = res[i];
-            index[character.id] = i;
-          };
-
-          this.setState({
-            index: index
-          });
-        });
-    }
-  }
-
-  parseSession(props) {
-    this.setState({
-      session: props.session
-    });
-
-    if(props.session) {
-      var ids = props.session.acf.npcs.map(function(character, index){
-        return character.ID;
-      });
-
-      this.setState({
-        present: ids
-      });
-    }
-  }
-
-  componentWillMount() {
-    this.setState({
-      characters: [],
-      present: []
-    });
-  }
-
-  componentWillReceiveProps(newProps) {
-    if(!this.state.campaign || this.state.campaign !== newProps.campaign) {
-      this.parseCampaign(newProps);
-    }
-
-    if(!this.state.session || this.state.session !== newProps.session) {
-      this.parseSession(newProps);
-    }
-  }
-
   render() {
-    if(!this.state.index) return(null);
+    console.log("NPCs:render", this.props);
+    const characterList = this.props.characters || {};
+    const session = this.props.session;
 
-    const state = this.state;
-    const npcList = state.present.map(function(characterId, index){
-      const character = state.characters[state.index[characterId]];
+    if(!session.acf) return(null);
+
+    const sessionNPCIds = session.acf.npcs.map(function(character, index){
+      return character.ID;
+    });
+
+    const npcList = Object.values(characterList).map(function(character, index){
+      if(!character.categories.includes(11) || !sessionNPCIds.includes(character.id)) {
+        return (null);
+      }
+
       return (
         <div key={index} className="npc" style={{backgroundImage: 'url(' + character.acf.token + ')'}}>
           <p>

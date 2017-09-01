@@ -5,10 +5,6 @@ import Party from '../containers/Party.js';
 
 class Character extends Component {
   componentWillMount() {
-    if(!this.props.characters && this.props.campaign) {
-      console.log("Character:WM:fetchCharacters", this.props.campaign.id);
-      this.props.fetchCharacters(this.props.campaign.id);
-    }
     this.props.selectCharacter(this.props.match.params.characterSlug);
   }
 
@@ -18,11 +14,6 @@ class Character extends Component {
 
       console.log("WRP-Nest", newProps.match.params.characterSlug);
       this.props.selectCharacter(newProps.match.params.characterSlug);
-    }
-
-    if(isEmpty(this.props.characters) && newProps.campaign) {
-      console.log("Character:WRP:fetchCharacters", newProps.campaign.id, this.props, newProps);
-      this.props.fetchCharacters(newProps.campaign.id);
     }
   }
 

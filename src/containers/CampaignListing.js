@@ -6,7 +6,7 @@ import CampaignListing from '../components/CampaignListing';
 
 function mapStateToProps(state) {
   return {
-    campaigns: state.campaigns.list || {}
+    campaigns: state.campaigns.list
   }
 }
 

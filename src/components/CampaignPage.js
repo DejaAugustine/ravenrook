@@ -22,11 +22,22 @@ class CampaignPage extends Component {
     this.parseState(newProps);
   }*/
 
+  componentWillMount() {
+    this.props.selectCampaignPage(this.props.match.params.pageSlug);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(newProps.pageSlug && newProps.pageSlug !== this.props.pageSlug) {
+      this.props.selectCampaignPage(newProps.pageSlug);
+    }
+  }
+
   render() {
     console.log("CampaignPage:render", this.props);
     const campaign = this.props.campaign;
     const name = campaign.name || '';
-    const path = campaign.path || '/';
+
+    const path = this.props.match.path.replace(/:pageSlug.*$/, '');
 
     const page = this.props.page || {};
     const title = page.title ? page.title.rendered : '';
@@ -35,7 +46,7 @@ class CampaignPage extends Component {
     return (
       <main className="session-list">
         <header>
-          <h3><Link to={path}>{name}</Link></h3>
+          <h3>{name}</h3>
           <h2>{title}</h2>
         </header>
 

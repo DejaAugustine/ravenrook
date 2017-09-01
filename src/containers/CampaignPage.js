@@ -7,9 +7,7 @@ import CampaignPage from '../components/CampaignPage';
 
 function mapStateToProps(state) {
   return {
-    campaignSlug: state.campaigns.activeKey,
     campaign: state.campaigns.active,
-    campaigns: state.campaigns.list,
     pages: state.campaignPages.list,
     pageSlug: state.campaignPages.activeKey,
     page: state.campaignPages.active

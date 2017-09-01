@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Party from './Party.js';
-import NPCs from './NPCs.js';
+import Party from '../containers/Party.js';
+import NPCs from '../containers/NPCs.js';
 
 import './SessionDetail.css';
 
 class SessionDetail extends Component {
 
-  parseSession(props) {
+  /*parseSession(props) {
     const sessionSlug = props.match.params.sessionSlug;
     const campaign = props.campaign;
     const sessions = props.sessions;
@@ -75,33 +75,53 @@ class SessionDetail extends Component {
     if(this.state.sessionSlug === newProps.match.params.sessionSlug && this.state.index === newProps.sessionIndex) return;
 
     this.parseSession(newProps);
+  }*/
+
+  componentWillMount() {
+    console.log("Session:WM", this.props);
+    this.props.selectSession(this.props.match.params.sessionSlug);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(newProps.match.params.sessionSlug && (!this.props.sessionSlug || newProps.match.params.sessionSlug !== this.props.sessionSlug)) {
+      newProps.selectSession(newProps.match.params.sessionSlug);
+    }
   }
 
   render() {
-    const session = this.state.session;
-    const campaign = this.state.campaign;
+    console.log("SessionDetail:render", this.props);
+    if(!this.props.session) return(null);
+
+    const session = this.props.session;
+    const campaign = this.props.campaign;
     const name = campaign ? campaign.name : "";
-    const body = session ? session.content.rendered : "";
-    const title = session ? session.title.rendered : "";
-    const number = session ? "Session " + session.acf.session_number : "";
+    const body = session.content ? session.content.rendered : "";
+    const title = session.title ? session.title.rendered : "";
+    const number = session.acf ? "Session " + session.acf.session_number : "";
+
+    var characterClasses = {};
+    if(session.acf) {
+      session.acf.characters.map(function(character, index){
+        characterClasses[character.ID] = "present";
+      });
+      console.log("characterClasses", characterClasses);
+    }
 
     return (
       <main className="session-detail">
         <header>
-          <h3><Link to={this.state.campaignPath || "/"}>{name}: {number}</Link></h3>
+          <h3>{name}: {number}</h3>
           <h2>{title}</h2>
-          <Party campaign={campaign} classes={this.state.classes} path={this.state.campaignPath} />
+          <Party classes={characterClasses} path={this.props.match} />
         </header>
 
-        <NPCs campaign={campaign} session={session} path={this.state.campaignPath} />
+        <NPCs />
 
         <section className="content" dangerouslySetInnerHTML={{__html: body}} />
 
         <nav>
           <ul className="menu">
-            <li className="menu-item">{this.state.prevLink}</li>
-            <li className="menu-item">{this.state.topLink}</li>
-            <li className="menu-item">{this.state.nextLink}</li>
+
           </ul>
         </nav>
       </main>

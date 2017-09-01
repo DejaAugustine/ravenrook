@@ -12,6 +12,8 @@ const storeList = (list, context) => {
 };
 
 export function fetchList(endpoint, context) {
+  console.log("fetchList", context, endpoint);
+
   return dispatch => {
     if(endpoint && context) {
       fetchData(endpoint, list => {
@@ -37,6 +39,7 @@ export const selectItemByKey = (key, context) => {
 };
 
 export function selectItem(key, context) {
+  console.log("selectItem", context, key);
   return dispatch => {
     if(key && context) {
       dispatch(selectItemByKey(key, context));

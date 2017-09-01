@@ -8,17 +8,11 @@ class CampaignDetail extends Component {
   componentWillReceiveProps(newProps) {
     console.log("Detail:WRP", this.props, newProps);
 
-    if(newProps.campaign && newProps.campaign.id && (!this.props.campaign || this.props.campaign.id !== newProps.campaign.id)) {
+    if(newProps.campaign.id && (!this.props.campaign || this.props.campaign.id !== newProps.campaign.id)) {
       console.log("New Campaign, fetching pages/sessions!", newProps.campaign, this.props.campaign);
       this.props.fetchCampaignPages(newProps.campaign.id);
       this.props.fetchSessions(newProps.campaign.id);
     }
-
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("Detail:sCU", nextProps.campaign !== undefined);
-    return nextProps.campaign !== undefined;
   }
 
   render() {
@@ -45,7 +39,7 @@ class CampaignDetail extends Component {
     const sessionList = Object.values(sessions).map((session, index) => {
       return (
         <li key={index} className="menu-item">
-          <Link to={path + '/sessions/' + session.slug} style={{backgroundImage: 'url(' + session.acf.cover_art + ')'}}>
+          <Link to={path + '/session/' + session.slug} style={{backgroundImage: 'url(' + session.acf.cover_art + ')'}}>
             <span>
               Session {session.acf.session_number}<br />
               {session.title.rendered}
