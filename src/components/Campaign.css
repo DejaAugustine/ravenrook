@@ -85,13 +85,14 @@ main .menu a {
 }
 
 main blockquote {
-    margin-top: 3em;
-    margin-bottom: 3em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 main blockquote p {
-  margin: 0;
+  margin: 0.5em 0;
   padding: 0;
+  line-height: 1.5em;
 }
 
 main blockquote p:first-child {
@@ -99,11 +100,11 @@ main blockquote p:first-child {
 }
 
 main blockquote p:first-child:before {
-  position: absolute;
+  position: relative;
   content: "\"";
   font-size: 2em;
-  left: -0.5em;
-  top: -0.1em;
+  left: -0.25em;
+  top: 0.3em;
   -ms-transform: rotate(-10deg); /* IE 9 */
   -webkit-transform: rotate(-10deg); /* Chrome, Safari, Opera */
   transform: rotate(-10deg);
@@ -111,8 +112,10 @@ main blockquote p:first-child:before {
 }
 
 main .note {
-  border-left: 2px solid rgba(255, 255, 255, 0.7);
   padding-left: 2em;
+  background-image: linear-gradient(to left, transparent 96%, rgba(255,255,255,0.1));
+  padding-bottom: 1em;
+  padding-top: 1em;
 }
 main .note p:first-child:before {
   content: "";
