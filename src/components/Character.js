@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Sticky, StickyContainer } from 'react-sticky';
+
+import Link from './LinkToTop';
 import Party from '../containers/Party.js';
 
 class Character extends Component {
@@ -17,26 +20,50 @@ class Character extends Component {
     const campaignName = this.props.campaign ? this.props.campaign.name : '';
     var characterClasses = {};
 
+    const backTo = this.props.match.path.replace(/\/character\/.*$/, '');
+
     if(!character.id) return(null);
 
     characterClasses[character.id] = "present";
 
     return (
       <main>
-        <header>
-          <h3>{campaignName}</h3>
-          <Party classes={characterClasses} path={this.props.match} />
-          <h2>{character.title.rendered}</h2>
-          <h3>{character.acf.race_class}</h3>
-        </header>
+        <Sticky topOffset={25}>
+          {(props) => {
+            return (
+              <header style={props.style} className={props.isSticky ? "sticky is-sticky" : "sticky"}>
+                <h3><Link to={backTo}>{campaignName}</Link></h3>
+              </header>
+            )
+          }}
+        </Sticky>
+        <Party classes={characterClasses} path={this.props.match} />
+        <StickyContainer key={1}>
+          <Sticky topOffset={25}>
+            {(props) => {
+              if(props.isSticky) {
+                return (
+                  <header style={props.style} className={props.isSticky ? "sticky is-sticky" : "sticky"}>
+                    <div>
+                      <h3><Link to={backTo}>{campaignName}</Link></h3>
+                      <h2>{character.title.rendered} - {character.acf.race_class}</h2>
+                    </div>
+                  </header>
+                )
+              }
 
-        <section className="content narrow" dangerouslySetInnerHTML={{__html: character.content.rendered}} />
+              return (
+                <header style={props.style}>
+                  <h2>{character.title.rendered}</h2>
+                  <h3>{character.acf.race_class}</h3>
+                </header>
+              )
+            }}
+          </Sticky>
 
-        <nav style={{clear: "both"}}>
-          <ul className="menu">
-            <li className="menu-item"><a href="/" onClick={this.props.history.goBack}>&lt; Back</a></li>
-          </ul>
-        </nav>
+          <section className="content narrow" dangerouslySetInnerHTML={{__html: character.content.rendered}} />
+
+        </StickyContainer>
       </main>
     );
   }

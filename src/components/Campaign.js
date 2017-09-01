@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { StickyContainer } from 'react-sticky';
+
+import './Campaign.css';
 
 import CampaignDetail from '../containers/CampaignDetail';
 import CampaignPage from '../containers/CampaignPage';
@@ -25,12 +28,14 @@ class Campaign extends Component {
 
   render() {
     return (
-      <Switch>
-        <Route path={this.props.match.url} exact component={CampaignDetail} />
-        <Route path={this.props.match.url + '/character/:characterSlug'} component={Character} />} />
-        <Route path={this.props.match.url + '/session/:sessionSlug'} component={SessionDetail} />
-        <Route path={this.props.match.url + '/:pageSlug'} component={CampaignPage} />
-      </Switch>
+      <StickyContainer key={0} className="campaign" id="wrapper">
+        <Switch>
+          <Route path={this.props.match.url} exact component={CampaignDetail} />
+          <Route path={this.props.match.url + '/character/:characterSlug'} component={Character} />} />
+          <Route path={this.props.match.url + '/session/:sessionSlug'} component={SessionDetail} />
+          <Route path={this.props.match.url + '/:pageSlug'} component={CampaignPage} />
+        </Switch>
+      </StickyContainer>
     );
   }
 };

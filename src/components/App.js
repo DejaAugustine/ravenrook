@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
+import './App.css';
+
 import StaticPage from './StaticPage';
 import CampaignListing from '../containers/CampaignListing';
-
-import './App.css';
 
 class App extends Component {
   render() {

@@ -1,10 +1,18 @@
-
 .campaign {
   padding: 0.5em
 }
 
-header {
+.campaign header {
   text-align: center;
+  background-color: #2e4c5d;
+  z-index: 100;
+  padding: 1em 0;
+  -webkit-transition: height 1s;
+  transition: height 1s;
+}
+
+.is-sticky {
+  border-bottom: 3px solid rgba(255,255,255,0.5);
 }
 
 h2 {
@@ -25,7 +33,7 @@ h3 {
 main {
   color: #FFFFFF;
   text-align: left;
-  padding: 0 1em;
+  padding: 1em 0;
 }
 
 .description {
@@ -36,7 +44,30 @@ main {
 }
 
 .content {
-  padding: 0 10em;
+  padding: 1em 10em;
+}
+
+.back,
+.next {
+  flex: 1 1;
+  color: #FFFFFF;
+  font-size: 1.5em;
+  display: none;
+}
+
+.sticky {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.is-sticky .back,
+.is-sticky .next {
+  display: block;
+}
+
+.header-content {
+  flex: 2 1;
 }
 
 main nav {
@@ -47,4 +78,8 @@ main nav {
 
 main .menu a {
   color: #FFFFFF;
+}
+
+.campaign a:hover {
+  color: greenyellow;
 }

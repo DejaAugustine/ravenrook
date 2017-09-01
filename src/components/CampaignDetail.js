@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Sticky } from 'react-sticky';
+
+import Link from './LinkToTop';
 import Party from '../containers/Party';
 
 import './CampaignDetail.css';
@@ -9,14 +11,14 @@ class CampaignDetail extends Component {
     if(!this.props.campaign) { return(null); }
 
     const campaign = this.props.campaign;
-    const path = this.props.match.url;
+    const path = this.props.match.url.replace(/\/?$/, '');
     const pages = this.props.pages || {};
     const sessions = this.props.sessions || {};
 
     const campaignPages = Object.values(pages).map((page, index) => {
       return (
         <li key={index} className="menu-item">
-          <Link to={path+ '/' + page.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}>
+          <Link to={path + '/' + page.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}>
             <span>
               {page.title.rendered}
             </span>
@@ -46,12 +48,18 @@ class CampaignDetail extends Component {
 
     return (
       <main className="session-list">
-        <header>
-          <h2>{name}</h2>
-          <h3>Campaign Overview</h3>
-          <Party path={this.props.match} />
-        </header>
+        <Sticky topOffset={25}>
+          {(props) => {
+            return (
+              <header style={props.style} className={props.isSticky ? "sticky is-sticky" : "sticky"}>
+                <h2>{name}</h2>
+                <h3>Campaign Overview</h3>
+              </header>
+            )
+          }}
+        </Sticky>
 
+        <Party path={this.props.match} />
         <p className="description" dangerouslySetInnerHTML={{__html: description}} />
 
         {notesHeader}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
+import Link from './LinkToTop';
 import './Party.css';
 
 class Party extends Component {

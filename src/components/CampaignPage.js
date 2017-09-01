@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Sticky } from 'react-sticky';
+
+import Link from './LinkToTop';
 
 class CampaignPage extends Component {
   componentWillMount() {
@@ -24,10 +26,18 @@ class CampaignPage extends Component {
 
     return (
       <main className="session-list">
-        <header>
-          <h3>{name}</h3>
-          <h2>{title}</h2>
-        </header>
+        <Sticky topOffset={25}>
+          {(props) => {
+            return (
+              <header style={props.style} className={props.isSticky ? "sticky is-sticky" : "sticky"}>
+                <div className="header-content">
+                  <h3><Link to={path}>{name}</Link></h3>
+                  <h2>{title}</h2>
+                </div>
+              </header>
+            )
+          }}
+        </Sticky>
 
         <p className="description" dangerouslySetInnerHTML={{__html: body}} />
 
