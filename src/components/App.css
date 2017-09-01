@@ -120,3 +120,11 @@ footer {
 footer p {
   margin: 0;
 }
+
+footer a {
+  color: #2e4c5d;
+}
+
+footer a:hover {
+  color: limegreen;
+}

@@ -83,3 +83,37 @@ main .menu a {
 .campaign a:hover {
   color: greenyellow;
 }
+
+main blockquote {
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+main blockquote p {
+  margin: 0;
+  padding: 0;
+}
+
+main blockquote p:first-child {
+  position: relative;
+}
+
+main blockquote p:first-child:before {
+  position: absolute;
+  content: "\"";
+  font-size: 2em;
+  left: -0.5em;
+  top: -0.1em;
+  -ms-transform: rotate(-10deg); /* IE 9 */
+  -webkit-transform: rotate(-10deg); /* Chrome, Safari, Opera */
+  transform: rotate(-10deg);
+  opacity: 0.5;
+}
+
+main .note {
+  border-left: 2px solid rgba(255, 255, 255, 0.7);
+  padding-left: 2em;
+}
+main .note p:first-child:before {
+  content: "";
+}
