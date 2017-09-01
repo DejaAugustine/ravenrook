@@ -55,8 +55,9 @@ class SessionDetail extends Component {
       });
     }
 
-    const metaDescription = session.yoast && session.yoast.metadesc;
-    const metaTags = [{name:'description', content:{metaDescription}}];
+    var metaTags = [];
+    if(session.yoast && session.yoast.metadesc)
+      metaTags.push({name:'description', content: session.yoast.metadesc});
 
     return (
       <main className="session-detail">

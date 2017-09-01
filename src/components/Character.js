@@ -27,8 +27,9 @@ class Character extends Component {
 
     characterClasses[character.id] = "present";
 
-    const metaDescription = character.yoast && character.yoast.metadesc;
-    const metaTags = [{name:'description', content:{metaDescription}}];
+    var metaTags = [];
+    if(character.yoast && character.yoast.metadesc)
+      metaTags.push({name:'description', content: character.yoast.metadesc});
 
     return (
       <main>

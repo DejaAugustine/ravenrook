@@ -25,8 +25,9 @@ class CampaignPage extends Component {
     const title = page.title && page.title.rendered;
     const body = page.content && page.content.rendered;
 
-    const metaDescription = page.yoast && page.yoast.metadesc;
-    const metaTags = [{name:'description', content:{metaDescription}}];
+    var metaTags = [];
+    if(page.yoast && page.yoast.metadesc)
+      metaTags.push({name: 'description', content: page.yoast.metadesc});
 
     return (
       <main className="session-list">
