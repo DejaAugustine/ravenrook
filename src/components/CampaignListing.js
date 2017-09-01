@@ -29,7 +29,6 @@ class CampaignListing extends Component {
       <div>
         <Helmet>
           <title>Campaign List - The Rook and The Raven</title>
-          <meta name="description" content="The Rook and The Raven have played four Dungeons and Dragons 5th edition campaigns. Select one from the list to follow along!"/>
           <link rel="canonical" href="https://therookandtheraven.com/campaigns/" />
         </Helmet>
         <SiteNav />

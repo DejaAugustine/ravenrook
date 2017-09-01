@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import { Sticky } from 'react-sticky';
 
 import Link from './LinkToTop';
@@ -21,18 +22,26 @@ class CampaignPage extends Component {
     const path = this.props.match.path.replace(/:pageSlug.*$/, '');
 
     const page = this.props.page || {};
-    const title = page.title ? page.title.rendered : '';
-    const body = page.content ? page.content.rendered : '';
+    const title = page.title && page.title.rendered;
+    const body = page.content && page.content.rendered;
+
+    const metaDescription = page.yoast && page.yoast.metadesc;
+    const metaTags = [{name:'description', content:{metaDescription}}];
 
     return (
       <main className="session-list">
+        <Helmet title={title + " - The Rook and The Raven"} meta={metaTags} >
+          <link rel="canonical" href={"https://therookandtheraven.com" + this.props.match.url} />
+        </Helmet>
         <Sticky topOffset={25}>
           {(props) => {
             return (
               <header style={props.style} className={props.isSticky ? "sticky is-sticky" : "sticky"}>
                 <div className="header-content">
-                  <h3><Link to={path}>{name}</Link></h3>
-                  <h2>{title}</h2>
+                  <div>
+                    <h3><Link to={path}>{name}</Link></h3>
+                    <h2>{title}</h2>
+                  </div>
                 </div>
               </header>
             )

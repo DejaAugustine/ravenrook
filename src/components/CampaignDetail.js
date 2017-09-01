@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from "react-helmet";
 import { Sticky } from 'react-sticky';
 
 import Link from './LinkToTop';
@@ -40,20 +41,29 @@ class CampaignDetail extends Component {
       );
     });
 
-    const name = campaign ? campaign.name : '';
-    const description = campaign ? campaign.description : '';
+    const name = campaign && campaign.name;
+    const description = campaign && campaign.description;
 
     const notesHeader = campaignPages.length > 0 ? <h3>Setting Notes</h3> : '';
     const sessionHeader = sessionList.length > 0 ? <h3>Sessions</h3> : '';
 
+    const metaTags = [];
+    if(campaign && campaign.acf && campaign.acf.meta_description) {
+      metaTags.push({ name: 'description', content: campaign.acf.meta_description })
+    }
     return (
       <main className="session-list">
+        <Helmet title={name + " - The Rook and The Raven"} meta={metaTags} >
+          <link rel="canonical" href={"https://therookandtheraven.com" + this.props.match.url} />
+        </Helmet>
         <Sticky topOffset={25}>
           {(props) => {
             return (
               <header style={props.style} className={props.isSticky ? "sticky is-sticky" : "sticky"}>
-                <h2>{name}</h2>
-                <h3>Campaign Overview</h3>
+                <div>
+                  <h2>{name}</h2>
+                  <h3>Campaign Overview</h3>
+                </div>
               </header>
             )
           }}

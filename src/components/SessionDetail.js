@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import { Sticky } from 'react-sticky';
 
 import './SessionDetail.css';
@@ -54,8 +55,14 @@ class SessionDetail extends Component {
       });
     }
 
+    const metaDescription = session.yoast && session.yoast.metadesc;
+    const metaTags = [{name:'description', content:{metaDescription}}];
+
     return (
       <main className="session-detail">
+        <Helmet title={title + " - " + name + " - The Rook and The Raven"} meta={metaTags} >
+          <link rel="canonical" href={"https://therookandtheraven.com" + this.props.match.url} />
+        </Helmet>
         <Sticky topOffset={25}>
           {(props) => {
             return (

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import { Sticky, StickyContainer } from 'react-sticky';
 
 import Link from './LinkToTop';
@@ -17,7 +18,7 @@ class Character extends Component {
 
   render() {
     const character = this.props.character || {};
-    const campaignName = this.props.campaign ? this.props.campaign.name : '';
+    const campaignName = this.props.campaign  && this.props.campaign.name;
     var characterClasses = {};
 
     const backTo = this.props.match.path.replace(/\/character\/.*$/, '');
@@ -26,8 +27,14 @@ class Character extends Component {
 
     characterClasses[character.id] = "present";
 
+    const metaDescription = character.yoast && character.yoast.metadesc;
+    const metaTags = [{name:'description', content:{metaDescription}}];
+
     return (
       <main>
+        <Helmet title={character.name + " - " + campaignName + " - The Rook and The Raven"} meta={metaTags} >
+          <link rel="canonical" href={"https://therookandtheraven.com" + this.props.match.url} />
+        </Helmet>
         <Sticky topOffset={25}>
           {(props) => {
             return (
