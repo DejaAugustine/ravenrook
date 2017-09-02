@@ -18,6 +18,8 @@ class Character extends Component {
 
   render() {
     const character = this.props.character || {};
+    const characterShortName = character.acf && character.acf.short_name;
+    const characterName = characterShortName || (character.title && character.title.rendered);
     const campaignName = this.props.campaign  && this.props.campaign.name;
     var characterClasses = {};
 
@@ -33,7 +35,7 @@ class Character extends Component {
 
     return (
       <main>
-        <Helmet title={character.name + " - " + campaignName + " - The Rook and The Raven"} meta={metaTags} >
+        <Helmet title={characterName + " - " + campaignName + " - The Rook and The Raven"} meta={metaTags} >
           <link rel="canonical" href={"https://therookandtheraven.com" + this.props.match.url} />
         </Helmet>
         <Sticky topOffset={25}>
