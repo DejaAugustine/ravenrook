@@ -41,3 +41,15 @@
   left: 0;
   right: 0;
 }
+
+@media (max-width: 500px) {
+  .character {
+    display: none;
+  }
+  .character.present {
+    display: block;
+  }
+  .content {
+    padding: 1em 1em;
+  }
+}

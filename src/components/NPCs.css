@@ -36,3 +36,16 @@ h4 {
   font-family: "cronos-pro-display", sans-serif;
   font-size: 1.1em;
 }
+
+@media (max-width: 500px) {
+  aside {
+    width: 90%;
+    min-width: 90%;
+    float: none;
+    clear: both;
+    border-left: 0;
+    border-right: 0;
+    margin: 1em 0;
+    padding: 1em;
+  }
+}

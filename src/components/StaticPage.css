@@ -38,3 +38,9 @@
 .static main a:hover {
   color: greenyellow;
 }
+
+@media (max-width: 500px) {
+  .static main {
+    padding: 1em;
+  }
+}
