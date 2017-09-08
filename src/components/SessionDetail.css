@@ -6,3 +6,14 @@
 .session-detail .next {
   display: block;
 }
+
+.session-detail .footer-nav i.fa {
+  font-size: 0.7em;
+}
+
+@media (max-width: 500px) {
+  .session-detail .sticky .back,
+  .session-detail .sticky .next {
+    display: none;
+  }
+}

@@ -44,7 +44,7 @@
 @media (max-width: 500px) {
   .campaign-listing .menu-item {
     min-width: 140px;
-    max-width:50%;
+    max-width:46%;
     margin: 0;
   }
 }

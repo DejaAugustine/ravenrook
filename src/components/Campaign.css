@@ -93,6 +93,7 @@ main a:hover {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
   font-family: "cronos-pro-display", sans-serif;
+  color: palegoldenrod;
 }
 
 .campaign blockquote p {
@@ -132,12 +133,13 @@ main a:hover {
   content: "";
 }
 
-.campaign .wp-caption {
-  width: 100% !important;
+.campaign .wp-caption.aligncenter {
+  margin: 0 auto;
 }
 
 .campaign .wp-caption-text {
   margin-top: 0.1em;
+  text-align: center;
 }
 
 .campaign .aligncenter {
@@ -156,5 +158,9 @@ main a:hover {
   .campaign .wp-caption img {
     width: 100%;
     height: 100%;
+  }
+  
+  .content {
+    padding: 1em 2em;
   }
 }

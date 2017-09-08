@@ -45,7 +45,12 @@ h4 {
     clear: both;
     border-left: 0;
     border-right: 0;
-    margin: 1em 0;
+    margin: 1em auto;
     padding: 1em;
+  }
+
+  .npc {
+    width: 50%;
+    margin: 0 auto;
   }
 }

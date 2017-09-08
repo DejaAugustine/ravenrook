@@ -29,6 +29,12 @@ class SessionDetail extends Component {
     }
   }
 
+  objectToSession(obj) {
+    if(obj && obj.post_status === "publish") {
+      return this.props.sessions[obj.post_name];
+    }
+  }
+
   render() {
     if(!this.props.session) return(null);
 
@@ -42,10 +48,10 @@ class SessionDetail extends Component {
     const path = this.basePath();
 
     const prevPath = session.acf && this.objectToPath(session.acf.previous_session);
-    const prev = prevPath && (<Link to={prevPath}><i className="fa fa-chevron-left" aria-hidden="true"></i></Link>);
+    const prev = prevPath && (<Link to={prevPath}><i className="fa fa-chevron-left" aria-hidden="true"></i> Session {this.objectToSession(session.acf.previous_session).acf.session_number}</Link>);
 
     const nextPath = session.acf && this.objectToPath(session.acf.next_session);
-    const next = nextPath && (<Link to={nextPath}><i className="fa fa-chevron-right" aria-hidden="true"></i></Link>);
+    const next = nextPath && (<Link to={nextPath}>Session {this.objectToSession(session.acf.next_session).acf.session_number} <i className="fa fa-chevron-right" aria-hidden="true"></i></Link>);
 
     var characterClasses = {};
     if(session.acf) {
@@ -84,9 +90,11 @@ class SessionDetail extends Component {
 
         <section className="content" dangerouslySetInnerHTML={{__html: body}} />
 
-        <nav style={{clear: "both"}}>
+        <nav className="footer-nav" style={{clear: "both"}}>
           <ul className="menu">
+            <li className="menu-item">{prev}</li>
             <li className="menu-item"><Link to={path}>Back to Campaign</Link></li>
+            <li className="menu-item">{next}</li>
           </ul>
         </nav>
       </main>
