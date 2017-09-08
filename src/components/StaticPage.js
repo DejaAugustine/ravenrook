@@ -40,13 +40,15 @@ class StaticPage extends Component {
   }
 
   render() {
+    const nav = this.props.withNav !== undefined && <SiteNav />;
+
     return (
       <div className="static">
         <Helmet>
           <title>{this.state.title}</title>
           <meta name="description" content={this.state.description}/>
         </Helmet>
-        <SiteNav />
+        {nav}
         <main dangerouslySetInnerHTML={{__html: this.state.content}} />
       </div>
     );

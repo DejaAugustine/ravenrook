@@ -8,10 +8,9 @@
 }
 
 .static blockquote {
-  max-width: 30em;
+  max-width: 25em;
   margin: 2em auto;
   position: relative;
-  left: 2em;
 }
 
 .static main h2 {
@@ -24,15 +23,17 @@
 .static main h3 {
   font-size: 2em;
   letter-spacing: 0.1em;
-  margin: 0.5em auto;
+  margin: 2em auto 0.5em;
   text-align: center;
 }
 
 .static main h4 {
   font-size: 1.5em;
   letter-spacing: 0.1em;
-  margin: 0.5em auto;
+  margin: 2em auto 0.5em;
   text-align: center;
+  border: 1px solid white;
+  max-width: 28em;
 }
 
 .static main a:hover {

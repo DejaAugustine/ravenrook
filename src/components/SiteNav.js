@@ -8,9 +8,6 @@ class SiteNav extends Component {
       <nav className="site-nav">
         <ul className="menu">
           <li className="menu-item">
-            <NavLink exact to="/">Home</NavLink>
-          </li>
-          <li className="menu-item">
             <NavLink to="/campaigns">Campaigns</NavLink>
           </li>
           <li className="menu-item">

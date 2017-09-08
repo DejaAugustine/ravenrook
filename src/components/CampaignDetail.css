@@ -53,6 +53,19 @@
   padding: 5%;
 }
 
+.session-listing a:hover span {
+  color: greenyellow;
+}
+
+.session-listing .caption {
+  position: absolute;
+  width: 100%;
+  bottom: -2.5em;
+  text-align: center;
+  font-family: "cronos-pro-display", sans-serif;
+  font-size: 1.2em;
+}
+
 .campaign-pages .menu-item {
   min-width: 200px;
   max-width: 20%;

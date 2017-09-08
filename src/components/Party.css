@@ -42,6 +42,10 @@
   right: 0;
 }
 
+.character a:hover span {
+  color: greenyellow;
+}
+
 @media (max-width: 500px) {
   .character {
     display: none;

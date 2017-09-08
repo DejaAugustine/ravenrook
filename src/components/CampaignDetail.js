@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
 import { Sticky } from 'react-sticky';
+import moment from 'moment';
 
 import Link from './LinkToTop';
 import Party from '../containers/Party';
@@ -29,6 +30,7 @@ class CampaignDetail extends Component {
     });
 
     const sessionList = Object.values(sessions).map((session, index) => {
+      const postDate = moment(session.date_gmt);
       return (
         <li key={index} className="menu-item">
           <Link to={path + '/session/' + session.slug} style={{backgroundImage: 'url(' + session.acf.cover_art + ')'}}>
@@ -37,6 +39,7 @@ class CampaignDetail extends Component {
               {session.title.rendered}
             </span>
           </Link>
+          <p className="caption">{postDate.format("MMMM Do, YYYY")}</p>
         </li>
       );
     });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 import './App.css';
@@ -23,9 +23,9 @@ class App extends Component {
           </header>
 
           <Switch>
-            <Route path="/" exact render={props => <StaticPage pageId="169" {...props} />} />
             <Route path="/campaigns" component={CampaignListing} />
-            <Route path="/contact" exact render={props => <StaticPage pageId="174" {...props} />} />
+            <Route path="/contact" exact render={props => <StaticPage pageId="174" withNav="true" {...props} />} />
+            <Redirect from="*" to="/campaigns" />
           </Switch>
 
           <footer>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { Switch, Route, NavLink } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
+import StaticPage from './StaticPage';
 import SiteNav from './SiteNav';
 import Campaign from '../containers/Campaign';
 
@@ -39,7 +40,10 @@ class CampaignListing extends Component {
             </ul>
           </nav>
 
-          <Route path={this.props.match.url + '/:campaignSlug'} component={Campaign} />
+          <Switch>
+            <Route path={this.props.match.url} exact render={props => <StaticPage pageId="169" {...props} />} />
+            <Route path={this.props.match.url + '/:campaignSlug'} component={Campaign} />
+          </Switch>
         </section>
       </div>
     );

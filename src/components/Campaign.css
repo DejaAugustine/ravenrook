@@ -76,8 +76,13 @@ main nav {
   text-align: center;
 }
 
+main a,
 main .menu a {
-  color: #FFFFFF;
+  color: darkseagreen;
+}
+
+main a:hover {
+  color: greenyellow;
 }
 
 .campaign a:hover {
@@ -87,12 +92,15 @@ main .menu a {
 .campaign blockquote {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
+  font-family: "cronos-pro-display", sans-serif;
 }
 
 .campaign blockquote p {
   margin: 0.5em 0;
   padding: 0;
   line-height: 1.5em;
+  font-size: 1.4em;
+  font-style: italic;
 }
 
 .campaign blockquote p:first-child {
@@ -101,6 +109,7 @@ main .menu a {
 
 .campaign blockquote p:first-child:before {
   position: relative;
+  font-famly: "bookmania", serif;
   content: "\"";
   font-size: 2em;
   left: -0.25em;
@@ -113,9 +122,11 @@ main .menu a {
 
 .campaign .note {
   padding-left: 2em;
-  background-image: linear-gradient(to left, transparent 96%, rgba(255,255,255,0.1));
+  background-image: linear-gradient(to left, transparent 40%, rgba(174,107,52,0.2));
   padding-bottom: 1em;
   padding-top: 1em;
+  border-radius: 1em;
+  color: #f3e3cb;
 }
 .campaign .note p:first-child:before {
   content: "";
