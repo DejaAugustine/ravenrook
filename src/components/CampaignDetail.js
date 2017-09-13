@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import Link from './LinkToTop';
 import Party from '../containers/Party';
+import Credits from './Credits';
 
 import './CampaignDetail.css';
 
@@ -29,7 +30,9 @@ class CampaignDetail extends Component {
       );
     });
 
+    var sessionCredits = [];
     const sessionList = Object.values(sessions).map((session, index) => {
+      sessionCredits.push(session.acf.cover_credits);
       const postDate = moment(session.date_gmt);
       return (
         <li key={index} className="menu-item">
@@ -84,6 +87,8 @@ class CampaignDetail extends Component {
         <ul className="session-listing menu">
           {sessionList}
         </ul>
+
+        <Credits credits={sessionCredits} />
       </main>
     );
   }

@@ -5,6 +5,7 @@ import { Sticky } from 'react-sticky';
 import './SessionDetail.css';
 
 import Link from './LinkToTop';
+import Credits from './Credits';
 import Party from '../containers/Party.js';
 import NPCs from '../containers/NPCs.js';
 
@@ -44,6 +45,7 @@ class SessionDetail extends Component {
     const body = session.content && session.content.rendered;
     const title = session.title && session.title.rendered;
     const number = session.acf  && "Session " + session.acf.session_number;
+    const credits = session.acf && session.acf.credits;
 
     const path = this.basePath();
 
@@ -97,6 +99,8 @@ class SessionDetail extends Component {
             <li className="menu-item">{next}</li>
           </ul>
         </nav>
+
+        <Credits credits={[credits]} />
       </main>
     );
   }

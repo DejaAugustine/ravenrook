@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { fetchCampaigns } from '../actions/campaigns';
+
 import CampaignListing from '../components/CampaignListing';
 
 function mapStateToProps(state) {

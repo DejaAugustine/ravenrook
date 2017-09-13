@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import StaticPage from './StaticPage';
 import SiteNav from './SiteNav';
 import Campaign from '../containers/Campaign';
+import Credits from './Credits';
 
 import './CampaignListing.css';
 
@@ -14,18 +15,17 @@ class CampaignListing extends Component {
     this.props.fetchCampaigns();
   }
 
-  renderCampaignList() {
+  render() {
+    var campaignList, campaignCredits = [];
+
     if(this.props.campaigns) {
       const campaigns = Object.values(this.props.campaigns);
-      return campaigns.map((campaign, index) => {
+      campaignList = campaigns.map((campaign, index) => {
+        campaignCredits.push(campaign.acf.credits);
         return <li key={index} className="menu-item"><NavLink to={'/campaigns/' + campaign.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}><span>{campaign.name}</span></NavLink></li>
       });
-    } else {
-      return (null);
     }
-  }
 
-  render() {
     return (
       <div>
         <Helmet>
@@ -36,7 +36,7 @@ class CampaignListing extends Component {
         <section className="campaigns">
           <nav className="campaign-listing">
             <ul className="menu">
-              {this.renderCampaignList()}
+              {campaignList}
             </ul>
           </nav>
 
@@ -45,6 +45,7 @@ class CampaignListing extends Component {
             <Route path={this.props.match.url + '/:campaignSlug'} component={Campaign} />
           </Switch>
         </section>
+        <Credits credits={campaignCredits} />
       </div>
     );
   }

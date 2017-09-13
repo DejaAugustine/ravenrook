@@ -1,0 +1,16 @@
+.credits {
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.6em;
+}
+
+.credits p {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.credits a:hover {
+  color: greenyellow;
+}
