@@ -45,7 +45,7 @@ class SessionDetail extends Component {
     const body = session.content && session.content.rendered;
     const title = session.title && session.title.rendered;
     const number = session.acf  && "Session " + session.acf.session_number;
-    const credits = session.acf && session.acf.credits;
+    const credits = session.credits && Object.values(session.credits);
 
     const path = this.basePath();
 

@@ -21,8 +21,8 @@ class CampaignListing extends Component {
     if(this.props.campaigns) {
       const campaigns = Object.values(this.props.campaigns);
       campaignList = campaigns.map((campaign, index) => {
-        campaignCredits.push(campaign.acf.credits);
-        return <li key={index} className="menu-item"><NavLink to={'/campaigns/' + campaign.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art + ')'}}><span>{campaign.name}</span></NavLink></li>
+        if(campaign.credits.length > 0) campaignCredits = [...campaignCredits, ...campaign.credits];
+        return <li key={index} className="menu-item"><NavLink to={'/campaigns/' + campaign.slug} style={{backgroundImage: 'url(' + campaign.acf.cover_art.sizes.medium + ')'}}><span>{campaign.name}</span></NavLink></li>
       });
     }
 

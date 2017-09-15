@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { Sticky } from 'react-sticky';
 
 import Link from './LinkToTop';
+import Credits from './Credits';
 
 class CampaignPage extends Component {
   componentWillMount() {
@@ -24,6 +25,7 @@ class CampaignPage extends Component {
     const page = this.props.page || {};
     const title = page.title && page.title.rendered;
     const body = page.content && page.content.rendered;
+    const credits = page.credits && Object.values(page.credits);
 
     var metaTags = [];
     if(page.yoast && page.yoast.metadesc)
@@ -56,6 +58,9 @@ class CampaignPage extends Component {
             <li className="menu-item"><Link to={path}>Back to Campaign</Link></li>
           </ul>
         </nav>
+
+
+        <Credits credits={[credits]} />
       </main>
     );
   }

@@ -3,7 +3,8 @@ import { Helmet } from 'react-helmet';
 import { Sticky, StickyContainer } from 'react-sticky';
 
 import Link from './LinkToTop';
-import Party from '../containers/Party.js';
+import Credits from './Credits';
+import Party from '../containers/Party';
 
 class Character extends Component {
   componentWillMount() {
@@ -21,6 +22,8 @@ class Character extends Component {
     const characterShortName = character.acf && character.acf.short_name;
     const characterName = characterShortName || (character.title && character.title.rendered);
     const campaignName = this.props.campaign  && this.props.campaign.name;
+    const credits = character.credits && Object.values(character.credits);
+
     var characterClasses = {};
 
     const backTo = this.props.match.path.replace(/\/character\/.*$/, '');
@@ -74,6 +77,8 @@ class Character extends Component {
           <section className="content narrow" dangerouslySetInnerHTML={{__html: character.content.rendered}} />
 
         </StickyContainer>
+
+        <Credits credits={[credits]} />
       </main>
     );
   }

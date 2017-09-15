@@ -20,7 +20,7 @@ class NPCs extends Component {
       }
 
       return (
-        <div key={index} className="npc" style={{backgroundImage: 'url(' + character.acf.token + ')'}}>
+        <div key={index} className="npc" style={{backgroundImage: 'url(' + character.acf.token.sizes.medium + ')'}}>
           <p>
             {character.acf.short_name || character.title.rendered} - {character.acf.race_class}<br />
             {character.acf.summary}

@@ -12,7 +12,6 @@ class Party extends Component {
     const lastIndex = currentPath.lastIndexOf(':characterSlug')
     const characterPath = lastIndex > 0 ? currentPath.substr(0, lastIndex) : currentPath + '/character/';
 
-
     const partyList = Object.values(characterList).map(function(character, index){
       if(!character.categories.includes(10)) return (null);
 
@@ -24,7 +23,7 @@ class Party extends Component {
         classes = classes.concat("present");
       }
 
-      return <li key={index} className={classes.join(' ')} style={{backgroundImage: 'url(' + character.acf.token + ')'}}><Link to={characterPath + character.slug}><span>{character.acf.short_name || character.title.rendered}</span></Link></li>
+      return <li key={index} className={classes.join(' ')} style={{backgroundImage: 'url(' + character.acf.token.sizes.medium + ')'}}><Link to={characterPath + character.slug}><span>{character.acf.short_name || character.title.rendered}</span></Link></li>
     });
 
     return (
