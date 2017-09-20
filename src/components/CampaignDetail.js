@@ -41,7 +41,7 @@ class CampaignDetail extends Component {
               {session.title.rendered}
             </span>
           </Link>
-          <p className="caption">{postDate.format("MMMM Do, YYYY")}</p>
+          <p className="caption">Posted on {postDate.format("MMMM Do, YYYY")}</p>
         </li>
       );
     });
@@ -51,6 +51,21 @@ class CampaignDetail extends Component {
 
     const notesHeader = campaignPages.length > 0 ? <h3>Setting Notes</h3> : '';
     const sessionHeader = sessionList.length > 0 ? <h3>Sessions</h3> : '';
+
+    var campaignStatus;
+    if(campaign && campaign.acf) {
+      if(campaign.acf.campaign_status === "Ongoing") {
+        const nextSession = moment(campaign.acf.next_session);
+        campaignStatus = (<p className="campaign-status description">
+          Session {parseInt(campaign.acf.sessions_played) + 1} is scheduled for {nextSession.format("dddd, MMMM Do, YYYY")}
+        </p>);
+      } else if(campaign.acf.campaign_status === "Ended") {
+        const finalSession = moment(campaign.acf.next_session);
+        campaignStatus = (<p className="campaign-status description">
+          After {parseInt(campaign.acf.sessions_played)} sessions, the final die was thrown on {finalSession.format("dddd, MMMM Do, YYYY")}
+        </p>);
+      }
+    }
 
     const metaTags = [];
     if(campaign && campaign.acf && campaign.acf.meta_description) {
@@ -75,6 +90,7 @@ class CampaignDetail extends Component {
         </Sticky>
 
         <Party path={this.props.match} />
+        {campaignStatus}
         <p className="description" dangerouslySetInnerHTML={{__html: description}} />
 
         {notesHeader}

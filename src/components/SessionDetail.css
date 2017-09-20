@@ -11,6 +11,11 @@
   font-size: 0.7em;
 }
 
+.session-date {
+  text-align: center;
+  font-size: 0.9em;
+}
+
 @media (max-width: 500px) {
   .session-detail .sticky .back,
   .session-detail .sticky .next {

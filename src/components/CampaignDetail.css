@@ -72,6 +72,12 @@
   height: 10em;
 }
 
+.session-list .campaign-status {
+  text-align: center;
+  font-size: 1.3em;
+  font-style: italic;
+}
+
 @media (max-width: 500px) {
   .description {
     width: 90%;

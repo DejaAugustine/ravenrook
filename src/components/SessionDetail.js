@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import { Sticky } from 'react-sticky';
+import moment from 'moment';
 
 import './SessionDetail.css';
 
@@ -55,7 +56,10 @@ class SessionDetail extends Component {
     const nextPath = session.acf && this.objectToPath(session.acf.next_session);
     const next = nextPath && (<Link to={nextPath}>Session {this.objectToSession(session.acf.next_session).acf.session_number} <i className="fa fa-chevron-right" aria-hidden="true"></i></Link>);
 
+    const postedDate = moment(session.date_gmt).format("dddd, MMMM Do, YYYY");
+    const sessionDate = session.acf && moment(session.acf.session_date).format("dddd, MMMM Do, YYYY");
     var characterClasses = {};
+
     if(session.acf) {
       session.acf.characters.map(function(character, index){
         characterClasses[character.ID] = "present";
@@ -91,6 +95,9 @@ class SessionDetail extends Component {
         <NPCs />
 
         <section className="content" dangerouslySetInnerHTML={{__html: body}} />
+
+
+        <p className="session-date">This session was played on {sessionDate}</p>
 
         <nav className="footer-nav" style={{clear: "both"}}>
           <ul className="menu">
