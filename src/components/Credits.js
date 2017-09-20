@@ -5,7 +5,7 @@ import './Credits.css';
 class Credits extends Component {
   render() {
     const creditList = this.props.credits || [];
-    const filteredList = creditList.filter(function(n){ return n !== undefined });
+    const filteredList = creditList.filter(function(n){ return n !== undefined && n !== "" });
     const credits = filteredList.join(", ");
 
     return (

@@ -30,8 +30,9 @@ class CampaignDetail extends Component {
       );
     });
 
-    var sessionCredits = [];
+    var sessionCredits = campaign.credits;
     const sessionList = Object.values(sessions).map((session, index) => {
+      sessionCredits.push(session.acf.cover_credits);
       const postDate = moment(session.date_gmt);
       return (
         <li key={index} className="menu-item">
@@ -57,12 +58,12 @@ class CampaignDetail extends Component {
       if(campaign.acf.campaign_status === "Ongoing") {
         const nextSession = moment(campaign.acf.next_session);
         campaignStatus = (<p className="campaign-status description">
-          Session {parseInt(campaign.acf.sessions_played) + 1} is scheduled for {nextSession.format("dddd, MMMM Do, YYYY")}
+          Session {parseInt(campaign.acf.sessions_played, 10) + 1} is scheduled for {nextSession.format("dddd, MMMM Do, YYYY")}
         </p>);
       } else if(campaign.acf.campaign_status === "Ended") {
         const finalSession = moment(campaign.acf.next_session);
         campaignStatus = (<p className="campaign-status description">
-          After {parseInt(campaign.acf.sessions_played)} sessions, the final die was thrown on {finalSession.format("dddd, MMMM Do, YYYY")}
+          After {parseInt(campaign.acf.sessions_played, 10)} sessions, the final die was thrown on {finalSession.format("dddd, MMMM Do, YYYY")}
         </p>);
       }
     }
@@ -102,6 +103,8 @@ class CampaignDetail extends Component {
         <ul className="session-listing menu">
           {sessionList}
         </ul>
+
+        <Credits credits={sessionCredits} />
       </main>
     );
   }

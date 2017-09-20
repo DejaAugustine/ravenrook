@@ -56,7 +56,6 @@ class SessionDetail extends Component {
     const nextPath = session.acf && this.objectToPath(session.acf.next_session);
     const next = nextPath && (<Link to={nextPath}>Session {this.objectToSession(session.acf.next_session).acf.session_number} <i className="fa fa-chevron-right" aria-hidden="true"></i></Link>);
 
-    const postedDate = moment(session.date_gmt).format("dddd, MMMM Do, YYYY");
     const sessionDate = session.acf && moment(session.acf.session_date).format("dddd, MMMM Do, YYYY");
     var characterClasses = {};
 
