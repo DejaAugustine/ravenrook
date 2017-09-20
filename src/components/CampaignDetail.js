@@ -30,7 +30,7 @@ class CampaignDetail extends Component {
       );
     });
 
-    var sessionCredits = campaign.credits;
+    var sessionCredits = [];
     const sessionList = Object.values(sessions).map((session, index) => {
       sessionCredits.push(session.acf.cover_credits);
       const postDate = moment(session.date_gmt);
