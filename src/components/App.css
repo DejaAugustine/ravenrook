@@ -136,6 +136,10 @@ footer a:hover {
   color: limegreen;
 }
 
+.content > .wp-caption:first-child + p {
+  margin-top: 0;
+}
+
 @media (max-width: 500px) {
   .site-header {
     height: 2em;

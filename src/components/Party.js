@@ -23,7 +23,9 @@ class Party extends Component {
         classes = classes.concat("present");
       }
 
-      return <li key={index} className={classes.join(' ')} style={{backgroundImage: 'url(' + character.acf.token.sizes.medium + ')'}}><Link to={characterPath + character.slug}><span>{character.acf.short_name || character.title.rendered}</span></Link></li>
+      const absentLabel = classes.includes("present") ? "" : " (absent)"
+
+      return <li key={index} className={classes.join(' ')} style={{backgroundImage: 'url(' + character.acf.token.sizes.medium + ')'}}><Link to={characterPath + character.slug}><span>{character.acf.short_name || character.title.rendered}{absentLabel}</span></Link></li>
     });
 
     return (
