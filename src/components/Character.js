@@ -50,7 +50,7 @@ class Character extends Component {
             )
           }}
         </Sticky>
-        <Party classes={characterClasses} path={this.props.match} />
+        <Party classes={characterClasses} path={this.props.match} absentLabelText="" />
         <StickyContainer key={1}>
           <Sticky topOffset={25}>
             {(props) => {
