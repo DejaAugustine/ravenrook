@@ -58,7 +58,7 @@ class CampaignDetail extends Component {
       if(campaign.acf.campaign_status === "Ongoing") {
         const nextSession = moment(campaign.acf.next_session);
         campaignStatus = (<p className="campaign-status description">
-          Session {parseInt(campaign.acf.sessions_played, 10) + 1} is scheduled for {nextSession.format("dddd, MMMM Do, YYYY")}
+          We're playing session {parseInt(campaign.acf.sessions_played, 10) + 1} on {nextSession.format("dddd, MMMM Do, YYYY")}!
         </p>);
       } else if(campaign.acf.campaign_status === "Ended") {
         const finalSession = moment(campaign.acf.next_session);
