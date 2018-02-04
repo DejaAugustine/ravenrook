@@ -11,6 +11,9 @@ class SiteNav extends Component {
             <NavLink to="/campaigns">Campaigns</NavLink>
           </li>
           <li className="menu-item">
+            <a href="https://shop.therookandtheraven.com">Shop</a>
+          </li>
+          <li className="menu-item">
             <NavLink to="/contact">Contact</NavLink>
           </li>
         </ul>

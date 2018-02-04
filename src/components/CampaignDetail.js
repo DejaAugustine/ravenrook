@@ -54,7 +54,7 @@ class CampaignDetail extends Component {
     const sessionHeader = sessionList.length > 0 ? <h3>Sessions</h3> : '';
 
     var campaignStatus;
-    if(campaign && campaign.acf) {
+    /*if(campaign && campaign.acf) {
       if(campaign.acf.campaign_status === "Ongoing") {
         const nextSession = moment(campaign.acf.next_session);
         campaignStatus = (<p className="campaign-status description">
@@ -66,7 +66,7 @@ class CampaignDetail extends Component {
           After {parseInt(campaign.acf.sessions_played, 10)} sessions, the final die was thrown on {finalSession.format("dddd, MMMM Do, YYYY")}
         </p>);
       }
-    }
+    }*/
 
     const metaTags = [];
     if(campaign && campaign.acf && campaign.acf.meta_description) {

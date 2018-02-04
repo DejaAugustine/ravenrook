@@ -31,7 +31,7 @@ class App extends Component {
           <footer>
             <p>Follow us on twitter <a href="https://twitter.com/dejaaugustine" className="twitter">@dejaaugustine</a>, <a href="https://twitter.com/amberaugustine" className="twitter">@amberaugustine</a>, and <a href="https://twitter.com/therooktheraven" className="twitter">@therooktheraven</a></p>
             <p>
-              <small>original content copyright &copy; 2015-2017 Déja Augustine and the respective party members</small>
+              <small>original content copyright &copy; 2015-2017 Déja &amp; Amber Augustine and the respective party members</small>
               <br />
               <small>licensed content and artwork (unless noted) are copyright the respective owner(s) and are used here without permission</small>
             </p>
